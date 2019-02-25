@@ -3,17 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Projek;
-use app\models\ProjekSearch;
+use app\models\ProjekTermin;
+use app\models\ProjekTerminSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
- * ProjekController implements the CRUD actions for Projek model.
+ * ProjekTerminController implements the CRUD actions for ProjekTermin model.
  */
-class ProjekController extends Controller
+class ProjekTerminController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -21,33 +20,23 @@ class ProjekController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['view'],
-                        'roles' => ['?'], //yang bisa diakses kalau tidak login
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index','update','view','create','delete'],
-                        'roles' => ['@'], // yang bisa diakses kalau sudah login
-                    ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
                 ],
             ],
         ];
     }
 
     /**
-     * Lists all Projek models.
+     * Lists all ProjekTermin models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProjekSearch();
+        $searchModel = new ProjekTerminSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination = ['pageSize' => 10];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -56,7 +45,7 @@ class ProjekController extends Controller
     }
 
     /**
-     * Displays a single Projek model.
+     * Displays a single ProjekTermin model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -69,25 +58,25 @@ class ProjekController extends Controller
     }
 
     /**
-     * Creates a new Projek model.
+     * Creates a new ProjekTermin model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Projek();
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+        $model = new ProjekTermin();
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['projek/view', 'id' => $model->id_projek]);
+        }else{
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
-     * Updates an existing Projek model.
+     * Updates an existing ProjekTermin model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +87,7 @@ class ProjekController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['projek/view', 'id' => $model->id_projek]);
         }
 
         return $this->render('update', [
@@ -107,7 +96,7 @@ class ProjekController extends Controller
     }
 
     /**
-     * Deletes an existing Projek model.
+     * Deletes an existing ProjekTermin model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -115,21 +104,24 @@ class ProjekController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['projek/view', 'id' => $model->id_projek]);
     }
 
     /**
-     * Finds the Projek model based on its primary key value.
+     * Finds the ProjekTermin model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Projek the loaded model
+     * @return ProjekTermin the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
+    
     protected function findModel($id)
     {
-        if (($model = Projek::findOne($id)) !== null) {
+        if (($model = ProjekTermin::findOne($id)) !== null) {
             return $model;
         }
 

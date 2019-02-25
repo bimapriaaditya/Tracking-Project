@@ -26,7 +26,7 @@ use app\models\RefJenisProjek;
 
     <?= $form->field($model, 'tahun') ?>
 
-    <!-- <?= $form->field($model, 'tanggal_mulai') ?> -->
+    <?= // $form->field($model, 'tanggal_mulai') ?>
 
     <?php // echo $form->field($model, 'tanggal_selesai') ?>
 

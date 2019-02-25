@@ -6,7 +6,6 @@ use yii\helpers\Html;
 /* @var $model app\models\Projek */
 
 $this->title = 'Update Projek ';
-$this->params['breadcrumbs'][] = ['label' => 'Project Tracking', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->kode, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

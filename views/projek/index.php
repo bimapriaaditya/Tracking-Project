@@ -90,10 +90,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 'value' => function($data) {
                     $list = null;
-                    $list .= Html::a("<i class='glyphicon glyphicon-search'></i>",['projek/view','id' => $data->id]).' ';
+                    $list .= Html::a("<i class='glyphicon glyphicon-search'style='color:indigo;'></i>",['projek/view','id' => $data->id]).' ';
                     if (User::isAdmin()) {
-                        $list .= Html::a("<i class='glyphicon glyphicon-edit'></i>",['projek/update','id' => $data->id]).' ';
-                        $list .= Html::a("<i class='glyphicon glyphicon-trash'></i>",['projek/delete','id' => $data->id],[
+                        $list .= Html::a("<i class='glyphicon glyphicon-edit' style='color:blue;'></i>",['projek/update','id' => $data->id]).' ';
+                        $list .= Html::a("<i class='glyphicon glyphicon-trash'style='color:red;'></i>",['projek/delete','id' => $data->id],[
                                 'data' => [
                                     'confirm' => 'Are you sure you want to delete this item?',
                                     'method' => 'post',

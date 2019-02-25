@@ -68,20 +68,18 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-12">
-            <footer style=" background-color: #222;
-                            position:relative;
-                            text-align: center;
-                            color: white;
-                            padding-top: 10px;
-                            height:60px;
-                            line-height:60px;
-                            width: 100%;">
-                <h4>Copyright &copy; <b style="color: #42a5f5;"> Bentang Inspira Teknologi </b><?= date('Y') ?></h4>
-            </footer>
-        </div>
+<div class="row">
+    <div class="col-md-12">
+        <footer style=" background-color: #222;
+                        position:relative;
+                        text-align: center;
+                        color: white;
+                        padding-top: 10px;
+                        height:60px;
+                        line-height:60px;
+                        width: 100%;">
+            <h4>Copyright &copy; <b style="color: #42a5f5;"> Bentang Inspira Teknologi </b><?= date('Y') ?></h4>
+        </footer>
     </div>
 </div>
 

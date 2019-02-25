@@ -69,20 +69,33 @@ class Projek extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kode', 'nama', 'tanggal_mulai', 'tanggal_selesai', 'status', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_kriteria', 'nos_spk', 'id_ref_lokasi', 'jenis',], 'required'],
+            [['kode', 'nama', 'tanggal_mulai', 'tanggal_selesai', 'status', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_kriteria', 'nos_spk', 'id_ref_lokasi', 'jenis','id_ref_metode_pembayaran'], 'required'],
             //[['kode'],'integer','message' => '{attribute} harus angka'],
-            [['tahun', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_perusahaan_pengguna', 'id_ref_perusahaan_peminjam', 'id_ref_kriteria', 'status_pembelian_barang', 'id_ref_lokasi'], 'integer'],
+            [['tahun', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_perusahaan_pengguna', 'id_ref_perusahaan_peminjam', 'id_ref_kriteria', 'status_pembelian_barang', 'id_ref_lokasi','id_ref_metode_pembayaran'], 'integer'],
+            //
             [['progress'], 'integer', 'max' => 100, 'min' => 1],
+            //
             [['tanggal_mulai', 'tanggal_selesai', 'status'], 'safe'],
+            //
             [['pagu', 'nilai_kontrak', 'status_kak', 'status_proposal', 'status_laporan_bulan', 'status_rab', 'status_spk', 'status_spp_ppn', 'status_spp_pph', 'status_sp2d', 'status_skb', 'status_bast', 'status_referensi_ta'], 'required'],
+            //
             [['kode', 'nama', 'nos_spk', 'penanggungjawab_lapangan', 'penanggungjawab_administrasi', 'administrasi', 'jenis', 'status_admin', 'status_teknis' ], 'string', 'max'=> 255],
+            //
             [['keterangan'], 'string'],
+            //
             [['id_ref_instansi'], 'exist', 'skipOnError' => true, 'targetClass' => RefInstansi::className(), 'targetAttribute' => ['id_ref_instansi' => 'id']],
+            //
             [['id_ref_jenis_project'], 'exist', 'skipOnError' => true, 'targetClass' => RefJenisProjek::className(), 'targetAttribute' => ['id_ref_jenis_project' => 'id']],
+            //
             [['id_ref_perusahaan_pengguna'], 'exist', 'skipOnError' => true, 'targetClass' => RefPerusahaan::className(), 'targetAttribute' => ['id_ref_perusahaan_pengguna' => 'id']],
+            //
             [['id_ref_perusahaan_peminjam'], 'exist', 'skipOnError' => true, 'targetClass' => RefPerusahaan::className(), 'targetAttribute' => ['id_ref_perusahaan_peminjam' => 'id']],
+            //
             [['id_ref_kriteria'], 'exist', 'skipOnError' => true, 'targetClass' => RefKriteria::className(), 'targetAttribute' => ['id_ref_kriteria' => 'id']],
+            //
             [['id_ref_lokasi'], 'exist', 'skipOnError' => true, 'targetClass' => RefLokasi::className(), 'targetAttribute' => ['id_ref_lokasi' => 'id']],
+            //
+             [['id_ref_metode_pembayaran'], 'exist', 'skipOnError' => true, 'targetClass' => RefMetodePembayaran::className(), 'targetAttribute' => ['id_ref_metode_pembayaran' => 'id']],
         ];
     }
 
@@ -106,6 +119,7 @@ class Projek extends \yii\db\ActiveRecord
             'id_ref_perusahaan_pengguna' => 'Perusahaan Pengguna',
             'id_ref_perusahaan_peminjam' => 'Perusahaan Peminjam',
             'id_ref_kriteria' => 'Kriteria',
+            'id_ref_metode_pembayaran' => 'Metode Pembayaran Project',
             'nos_spk' => 'No SPK',
             'pagu' => 'Nilai Pagu',
             'nilai_kontrak' => 'Nilai Kontrak',
@@ -179,15 +193,41 @@ class Projek extends \yii\db\ActiveRecord
         return $this->hasOne(RefLokasi::className(), ['id' => 'id_ref_lokasi']);
     }
 
+     public function getRefMetodePembayaran()
+    {
+        return $this->hasOne(RefMetodePembayaran::className(), ['id' => 'id_ref_metode_pembayaran']);
+        
+    }
+
+    public function getMetodeBayar()
+    {
+        if($this->id_ref_metode_pembayaran == 1 ){
+            return 'Langsung';
+        }else{
+            return 'Termin';
+        }
+    }
+
     public function getProgress()
     {
         return $progress = $this->progress."%";
     }
 
+    public function sudahTiga()
+    {
+        $jumlah = ProjekTermin::find()
+            ->andWhere(['id_projek' => $this->id])
+            ->count();
+
+        if($jumlah >= 3){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function getKak()
     {
-        $kak = $this->status_kak;
-
         if($this->status_kak == 'Belum'){
             return "&nbsp <span class='glyphicon glyphicon-remove' style='color:red;'> BelumTersedia </span>";
         }elseif ($this->status_kak == 'Proses') {
@@ -306,4 +346,26 @@ class Projek extends \yii\db\ActiveRecord
             return "&nbsp <span class='glyphicon glyphicon-ok'style='color:#30fb41;'> SudahSelesai </span>"; 
         }
     }
+
+    public function getDpp()
+    {
+        return $this->nilai_kontrak / 1.1;
+    }
+    public function getPpn()
+    {
+        return $this->getDpp() * 0.10 ;
+    }
+    public function getPph()
+    {
+        return $this->getDpp() * 0.2;
+    }
+    public function getNet()
+    {
+        return $this->getDpp() - $this->getPph();
+    }
+
+    /*public function getDppTermin()
+    {
+        return $this->
+    }*/
 }
