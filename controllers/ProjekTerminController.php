@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\ProjekTermin;
+use app\models\Projek;
 use app\models\ProjekTerminSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -62,12 +63,23 @@ class ProjekTerminController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_projek)
     {
         $model = new ProjekTermin();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['projek/view', 'id' => $model->id_projek]);
+        $model->id_projek = $id_projek;
+        // Cara 1
+        // $modelprojek = Projek::findOne($id_projek);
+
+        if ($model->load(Yii::$app->request->post())) {
+            // Masih Cara 1 : 
+            // $model->jumlah = ($model->persen/100) * $modelprojek->nilai_kontrak;
+
+            //Cara 2
+            $model->jumlah = ($model->persen/100) * $model->projek->nilai_kontrak;
+            if($model->save()) {
+               return $this->redirect(['projek/view', 'id' => $model->id_projek]);
+            }
         }else{
             return $this->render('create', [
                 'model' => $model,
@@ -86,13 +98,16 @@ class ProjekTerminController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['projek/view', 'id' => $model->id_projek]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->jumlah = ($model->persen/100) * $model->projek->nilai_kontrak;
+            if($model->save()) {
+                return $this->redirect(['projek/view', 'id' => $model->id_projek]);
+            }
+        }else{
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -121,6 +136,8 @@ class ProjekTerminController extends Controller
     
     protected function findModel($id)
     {
+        /*$termin = ProjekTermin::find()->andWhere(['id' =>12212])->one();
+        echo $termin->nama;*/
         if (($model = ProjekTermin::findOne($id)) !== null) {
             return $model;
         }

@@ -207,58 +207,65 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]); 
     }elseif ($model->id_ref_metode_pembayaran == 2){
-?>
-    <?php 
         if($model->sudahTiga() == true){
             echo '&nbsp;';
         }elseif(User::isAdmin()){
             echo '&nbsp;';
-            echo Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Termin', ['projek-termin/create'],['class' => 'btn btn-success']);
-        }
-    ?>
+            echo Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Termin', ['projek-termin/create','id_projek' => $model->id],['class' => 'btn btn-success']);
+        }?>
     <table class="table table-borderd table-hover">
         <thead>
             <tr>
                 <th>Termin</th>
                 <th>Progress Termin</th>
-                <th>Jumlah Diterima</th>
+                <th>Hasil</th>
                 <th>Keterangan</th>
                 <th>&nbsp;</th>
             </tr>
-            <?php foreach (ProjekTermin::find()->orderby(['termin' => SORT_ASC])->all() as $ProjekTermin):
-                if($ProjekTermin->id_projek == $model->id){ ?>
-                    <tr>
-                        <td><?= $ProjekTermin->termin; ?> Termin</td>
-                        <td><?= $ProjekTermin->persen; ?>%</td>
-                        <td><?= $ProjekTermin->jumlah; ?></td>
-                        <td><?= $ProjekTermin->keterangan; 
-                            if($ProjekTermin->keterangan == ''){
-                                echo "-";
-                            } ?>
-                        </td>
-                        <td><?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['projek-termin/update', 'id' => $ProjekTermin->id]); ?>
-                            <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['projek-termin/delete','id' => $ProjekTermin->id],[
-                                    'data' => [
-                                        'confirm' => 'Are you sure you want to delete this item?',
-                                        'method' => 'post',
-                                    ]
-                                ]); 
-                            ?>
-                        </td>
-                    </tr>
-                <?php } 
-            endforeach ?>
+            <?php foreach (ProjekTermin::find()
+                ->andWhere(['id_projek' => $model->id])
+                ->orderby(['termin' => SORT_ASC])
+                ->all() as $ProjekTermin): ?>
+                <tr>
+                    <td><?= $ProjekTermin->termin; ?> Termin</td>
+                    <td><?= $ProjekTermin->persen; ?>%</td>
+                    <td>Rp.<?= number_format($ProjekTermin->jumlah)?>,00</td>
+                    <td><?= $ProjekTermin->keterangan; 
+                        if($ProjekTermin->keterangan == ''){
+                            echo "-";
+                        } ?>
+                    </td>
+                    <td><?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['projek-termin/update', 'id' => $ProjekTermin->id]); ?>
+                        <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['projek-termin/delete','id' => $ProjekTermin->id],[
+                                'data' => [
+                                    'confirm' => 'Are you sure you want to delete this item?',
+                                    'method' => 'post',
+                                ]
+                            ]); 
+                        ?>
+                    </td>
+                </tr>
+            <?php endforeach ?>
         </thead>
     </table>
-    <?php 
-    $no = 1;
-    foreach (ProjekTermin::find()->andWhere(['id_projek' => $model->id])->all() as $NilaiTermin): ?>
-        <?php echo $NilaiTermin->getIdProjek(); ?>
+    <?php foreach (ProjekTermin::find()
+        ->andWhere(['id_projek' => $model->id])
+        ->orderby(['termin' => SORT_ASC])
+        ->all() as $NilaiTermin): ?>
         <div class="col-sm-4">
-            <h3><b> Termin : <?php echo $no++ ?></b></h3>
+            <h3><b> Termin : <?php echo $NilaiTermin->termin; ?></b></h3>
             <?= DetailView::widget([
                     'model' => $NilaiTermin,
                     'attributes' => [
+                        [   
+                            'attribute' => 'nilai_kontrak',
+                            'value' => "Rp. ".number_format($model->nilai_kontrak,2)
+                        ],
+                        [
+                            'label' => 'Hasil Termin',
+                            'value' => 'Rp.'. number_format($NilaiTermin->jumlah).',00',
+                            'format' => 'raw',
+                        ],
                         [
                             'label'=> 'DPP',
                             'value' => "Rp. ". number_format($NilaiTermin->getDppTermin()).",00",
@@ -285,6 +292,4 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     <?php endforeach ?>
 <?php }
-    else{
-        
-    } ?>
+?>

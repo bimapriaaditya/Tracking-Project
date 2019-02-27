@@ -29,9 +29,9 @@ class ProjekTermin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_projek', 'termin', 'persen', 'jumlah'], 'required'],
+            [['id_projek', 'termin', 'persen'], 'required'],
             [['id_projek', 'termin', 'persen', 'jumlah'], 'integer'],
-            [['keterangan'], 'safe'],
+            [['keterangan','jumlah'], 'safe'],
         ];
     }
 
@@ -50,14 +50,9 @@ class ProjekTermin extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getIdProjek()
-    {
-        return $this->id;
-    }
-
     public function getDppTermin()
     {
-        return $this->jumlah;
+        return $this->jumlah / 1.1;
     }
     public function getPpnTermin()
     {
@@ -70,5 +65,10 @@ class ProjekTermin extends \yii\db\ActiveRecord
     public function getNetTermin()
     {
         return $this->getDppTermin() - $this->getPphTermin();
+    }
+
+    public function getProjek()
+    {
+        return $this->hasOne(Projek::className(), ['id' => 'id_projek']);
     }
 }
