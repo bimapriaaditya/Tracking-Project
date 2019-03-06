@@ -69,13 +69,13 @@ class Projek extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kode', 'nama', 'tanggal_mulai', 'tanggal_selesai', 'status', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_kriteria', 'nos_spk', 'id_ref_lokasi', 'jenis','id_ref_metode_pembayaran'], 'required'],
+            [['nama', 'tanggal_mulai', 'tanggal_selesai', 'status', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_kriteria', 'nos_spk', 'id_ref_lokasi', 'jenis','id_ref_metode_pembayaran'], 'required'],
             //[['kode'],'integer','message' => '{attribute} harus angka'],
             [['tahun', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_perusahaan_pengguna', 'id_ref_perusahaan_peminjam', 'id_ref_kriteria', 'status_pembelian_barang', 'id_ref_lokasi','id_ref_metode_pembayaran'], 'integer'],
             //
             [['progress'], 'integer', 'max' => 100, 'min' => 1],
             //
-            [['tanggal_mulai', 'tanggal_selesai', 'status'], 'safe'],
+            [['kode','tanggal_mulai', 'tanggal_selesai', 'status','pajak_ppn','pajak_pph'], 'safe'],
             //
             [['pagu', 'nilai_kontrak', 'status_kak', 'status_proposal', 'status_laporan_bulan', 'status_rab', 'status_spk', 'status_spp_ppn', 'status_spp_pph', 'status_sp2d', 'status_skb', 'status_bast', 'status_referensi_ta'], 'required'],
             //
@@ -141,7 +141,9 @@ class Projek extends \yii\db\ActiveRecord
             'status_pembelian_barang' => 'Status Pembelian Barang',
             'administrasi' => 'Administrasi',
             'progress' => 'Progress Project',
-            'keterangan' => 'Keterangan'
+            'keterangan' => 'Keterangan',
+            'pajak_ppn' => 'Pajak PPN',
+            'pajak_pph' => 'Pajak PPH'
         ];
     }
 

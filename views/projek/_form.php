@@ -20,8 +20,7 @@ use kartik\date\DatePicker;
     <div class="col-sm-6">
         <div class="projek-form">
             <?php $form = ActiveForm::begin(); ?>
-
-            <?= $form->field($model, 'kode')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'kode')->textInput() ?>
 
             <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
@@ -45,10 +44,10 @@ use kartik\date\DatePicker;
                 ]
             ]);?>    
 
-            <?= $form->field($model, 'jenis')->dropdownList(['Barang' => 'Barang','Jasa'=>'Jasa'],
-            ['maxlength' => true],['prompt' => '--Jenis Project--']); ?>
+            <?= $form->field($model, 'jenis')->dropdownList(['' => '--JenisProject--','Barang' => 'Barang','Jasa'=>'Jasa'],
+            ['maxlength' => true]); ?>
 
-            <?= $form->field($model, 'status')->dropdownList(['Pemenang'=>'Pemenang', 'Potensi Project'=>'Potensi Project'],['maxlength' => true],['prompt' => '--Status Project--']); ?>
+            <?= $form->field($model, 'status')->dropdownList(['' => '--StautsProject--','Pemenang'=>'Pemenang', 'Potensi Project'=>'Potensi Project'],['maxlength' => true],['prompt' => '--Status Project--']); ?>
 
             <?= $form->field($model, 'id_ref_lokasi')->dropdownList(RefLokasi::getList(),['prompt' => '--Lokasi--']); ?>    
 
@@ -71,56 +70,68 @@ use kartik\date\DatePicker;
             <?= $form->field($model, 'penanggungjawab_lapangan')->textInput() ?>
 
             <?= $form->field($model, 'penanggungjawab_administrasi')->textInput() ?>
+
+            <?= $form->field($model, 'status_admin')->textInput() ?>
+
+            <?= $form->field($model, 'status_teknis')->textInput() ?>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="projek-form">
+    <div class="col-sm-6">
+        <div class="projek-form">
+            <?= $form->field($model, 'id_ref_metode_pembayaran')->dropdownList(RefMetodePembayaran::getList(),['prompt' => '-- Pilih Metode Pembayaran --']) ?>      
+            <?= $form->field($model, 'status_kak')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status KAK --']) ?>
+
+            <?= $form->field($model, 'status_proposal')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status Proposal --']) ?>
+
+            <?= $form->field($model, 'status_laporan_bulan')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Laporan Bulanan --']) ?>
+
+            <?= $form->field($model, 'status_rab')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status RAB --']) ?>
+
+            <?= $form->field($model, 'status_spk')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SPK --']) ?>
             
-                <?= $form->field($model, 'id_ref_metode_pembayaran')->dropdownList(RefMetodePembayaran::getList(),['prompt' => '-- Pilih Metode Pembayaran --']) ?>      
+            <?= $form->field($model, 'status_spp_ppn')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SPP PPN --','id' => 'list_ppn']) ?>
+            
+            <?= $form->field($model, 'pajak_ppn')->textInput(['placeholder' => 'Masukan Kode Pajak PPN'],['class' => 'nomor_ppn']); ?>
 
-                <?= $form->field($model, 'status_admin')->textInput() ?>
+            <?= $form->field($model, 'status_spp_pph')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SPP PPH --', 'id' => 'list_pph']) ?>
 
-                <?= $form->field($model, 'status_teknis')->textInput() ?>
+            <?=  $form->field($model, 'pajak_pph')->textInput(['placeholder' => 'Masukan Kode Pajak PPH'],['id' => 'nomor_pph']); ?>
 
-                <?= $form->field($model, 'status_kak')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status KAK --']) ?>
+            <?= $form->field($model, 'status_sp2d')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SP2D --']) ?>
 
-                <?= $form->field($model, 'status_proposal')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status Proposal --']) ?>
+            <?= $form->field($model, 'status_skb')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SKB --']) ?>
 
-                <?= $form->field($model, 'status_laporan_bulan')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Laporan Bulanan --']) ?>
+            <?= $form->field($model, 'status_bast')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status BAST --']) ?>
 
-                <?= $form->field($model, 'status_rab')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status RAB --']) ?>
+            <?= $form->field($model, 'status_referensi_ta')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status Referensi TA --']) ?>
 
-                <?= $form->field($model, 'status_spk')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SPK --']) ?>
+            <?= $form->field($model, 'status_pembelian_barang')->textInput() ?>
 
-                <?= $form->field($model, 'status_spp_ppn')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SPP PPN --']) ?>
+            <?= $form->field($model, 'administrasi')->textInput(['maxlength' => true]) ?>
 
-                <?= $form->field($model, 'status_spp_pph')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SPP PPH --']) ?>
+            <?= $form->field($model, 'progress')->textInput(['type' => 'number', 'placeholder' => 'Input dari 1-100']) ?>
 
-                <?= $form->field($model, 'status_sp2d')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SP2D --']) ?>
-
-                <?= $form->field($model, 'status_skb')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SKB --']) ?>
-
-                <?= $form->field($model, 'status_bast')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status BAST --']) ?>
-
-                <?= $form->field($model, 'status_referensi_ta')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status Referensi TA --']) ?>
-
-                <?= $form->field($model, 'status_pembelian_barang')->textInput() ?>
-
-                <?= $form->field($model, 'administrasi')->textInput(['maxlength' => true]) ?>
-
-                <?= $form->field($model, 'progress')->textInput(['type' => 'number', 'placeholder' => 'Input dari 1-100']) ?>
-
-                <?= $form->field($model, 'keterangan')->textarea(['rows' => 5],['maxlength' => true]) ?>
-            </div>
+            <?= $form->field($model, 'keterangan')->textarea(['rows' => 5],['maxlength' => true]) ?>
         </div>
     </div>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>
 
+<div class="form-group">
+    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+</div>
+
+<?php ActiveForm::end(); ?>
+
+<script type="text/javascript" >
+    $this->registerJs($script);
+    $(document).ready(function () {
+        $(document.body).on('change', '#list_ppn', function () {
+            var val = $('#list_ppn').val();
+            if(val == 'Sudah') {
+              $('.nomor_ppn').show(1000);
+            } else {
+              $('.nomor_ppn').hide();
+            }
+        });
+    });
+</script>

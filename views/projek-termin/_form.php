@@ -12,6 +12,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <!-- <?= $form->field($model, 'id_projek')->textInput() ?> -->
+
     <?= $form->field($model, 'termin')->dropdownList([ 1 => '1 Termin' , 2 => '2 Termin',3 => '3 Termin'],['prompt' => '-- Masukan Termin --']) ?>
 
     <?= $form->field($model, 'persen')->textInput() ?>

@@ -68,6 +68,7 @@ class ProjekTerminController extends Controller
         $model = new ProjekTermin();
 
         $model->id_projek = $id_projek;
+
         // Cara 1
         // $modelprojek = Projek::findOne($id_projek);
 
@@ -76,7 +77,7 @@ class ProjekTerminController extends Controller
             // $model->jumlah = ($model->persen/100) * $modelprojek->nilai_kontrak;
 
             //Cara 2
-            $model->jumlah = ($model->persen/100) * $model->projek->nilai_kontrak;
+            $model->jumlah = ($model->persen/100)*($model->projek->nilai_kontrak);
             if($model->save()) {
                return $this->redirect(['projek/view', 'id' => $model->id_projek]);
             }
@@ -99,7 +100,7 @@ class ProjekTerminController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->jumlah = ($model->persen/100) * $model->projek->nilai_kontrak;
+            $model->jumlah = ($model->persen/100) * ($model->projek->nilai_kontrak);
             if($model->save()) {
                 return $this->redirect(['projek/view', 'id' => $model->id_projek]);
             }

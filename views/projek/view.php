@@ -81,6 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => "Rp. ".number_format($model->nilai_kontrak,2)
                 ],
                 'penanggungjawab_lapangan',
+                'penanggungjawab_administrasi',
             ]
         ]); ?>
     </div>
@@ -89,33 +90,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                'penanggungjawab_administrasi',
-                /*[
-                    'attribute' => 'id_ref_metode_pembayaran',
-                    'value' => $model->refMetodePembayaran->nama
-                ],*/
                 'status_admin',
                 'status_teknis',
-                /*[
-                    'label'=> 'DPP',
-                    'value' => "Rp. ". number_format($model->getDpp()).",00",
-                    'format' => 'raw',
-                ],
-                [
-                    'label'=> 'PPN',
-                    'value' => "Rp. ". number_format($model->getPpn()).",00",
-                    'format' => 'raw',
-                ],
-                [
-                    'label'=> 'PPH',
-                    'value' => "Rp. ". number_format($model->getPph()).",00",
-                    'format' => 'raw',
-                ],
-                [
-                    'label'=> 'NET',
-                    'value' => "Rp. ". number_format($model->getNet()).",00",
-                    'format' => 'raw',
-                ], */
                 [
                     'attribute' => 'status_kak',
                     'value' => $model->getKak(),
@@ -146,10 +122,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => $model->getSppPpn(),
                     'format' => 'raw',
                 ],
+                
+                [
+                    'label' => 'Pajak PPN',
+                    'value' =>  (($model->status_spp_ppn == 'Sudah')? $model->pajak_ppn : 
+                                (($model->status_spp_ppn == 'Belum')? 'Kosong' : 'Masih Proses' )), 
+                ],
+                /*'value' => (($model->voucher_category ==0) ? "Income Voucher": (($model->voucher_category ==1)? "Exepense Voucher" : "General Voucher")),*/
                 [
                     'attribute'=> 'status_spp_pph',
                     'value' => $model->getSppPph(),
                     'format' => 'raw',
+                ],
+                [
+                    'attribute' => 'pajak_pph',
+                    'value' =>  (($model->status_spp_pph == 'Belum') ? 'Kosong' : 
+                                (($model->status_spp_pph == 'Sudah')? $model->pajak_pph : 'Masih Proses' )),
                 ],
                 [
                     'attribute'=> 'status_sp2d',
@@ -184,6 +172,11 @@ $this->params['breadcrumbs'][] = $this->title;
         echo DetailView::widget([
             'model' => $model,
             'attributes' => [
+                [   
+                    'label' => 'Nilai Kontrak'  ,
+                    'value' => "Rp. ".number_format($model->nilai_kontrak,2),
+                    'format' => 'raw',
+                ],
                 [
                     'label'=> 'DPP',
                     'value' => "Rp. ". number_format($model->getDpp()).",00",
