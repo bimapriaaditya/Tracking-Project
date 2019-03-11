@@ -48,6 +48,7 @@ class ProjekController extends Controller
         $searchModel = new ProjekSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination = ['pageSize' => 10];
+        $this->getView()->registerJsFile('js/fileinput.js');
 
         return $this->render('index', [
             'searchModel' => $searchModel,

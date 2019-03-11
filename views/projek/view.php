@@ -118,26 +118,24 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                 ],
                 [
-                    'attribute'=> 'status_spp_ppn',
-                    'value' => $model->getSppPpn(),
-                    'format' => 'raw',
-                ],
-                
-                [
-                    'label' => 'Pajak PPN',
-                    'value' =>  (($model->status_spp_ppn == 'Sudah')? $model->pajak_ppn : 
-                                (($model->status_spp_ppn == 'Belum')? 'Kosong' : 'Masih Proses' )), 
-                ],
-                /*'value' => (($model->voucher_category ==0) ? "Income Voucher": (($model->voucher_category ==1)? "Exepense Voucher" : "General Voucher")),*/
-                [
-                    'attribute'=> 'status_spp_pph',
-                    'value' => $model->getSppPph(),
+                    'attribute'=> 'status_ssp_ppn',
+                    'value' => $model->getSspPpn(),
                     'format' => 'raw',
                 ],
                 [
-                    'attribute' => 'pajak_pph',
-                    'value' =>  (($model->status_spp_pph == 'Belum') ? 'Kosong' : 
-                                (($model->status_spp_pph == 'Sudah')? $model->pajak_pph : 'Masih Proses' )),
+                    'label' => '',
+                    'value' =>  (($model->status_ssp_ppn == 'Sudah')? $model->pajak_ppn : 
+                                (($model->status_ssp_ppn == 'Belum')? '' : '' )), 
+                ],
+                [
+                    'attribute'=> 'status_ssp_pph',
+                    'value' => $model->getSspPph(),
+                    'format' => 'raw',
+                ],
+                [
+                    'label' => '',
+                    'value' =>  (($model->status_ssp_pph == 'Belum') ? '' : 
+                                (($model->status_ssp_pph == 'Sudah')? $model->pajak_pph : 'Masih Proses' )),
                 ],
                 [
                     'attribute'=> 'status_sp2d',
@@ -286,3 +284,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php endforeach ?>
 <?php }
 ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("document").ready( function () {
+        alert("Hello Saya");
+    });
+        $("button").click(function(){
+            $("p").toggle("Slow");
+        });
+    });
+</script>
+
+<button>Hide</button>
+<p>This is a paragraph with little content.</p>
+<p>This is another small paragraph.</p>

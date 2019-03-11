@@ -2,20 +2,22 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\web\JqueryAsset;
+use kartik\date\DatePicker;
 use app\models\RefLokasi;
 use app\models\RefInstansi;
 use app\models\RefJenisProjek;
 use app\models\RefKriteria;
 use app\models\RefPerusahaan;
 use app\models\RefMetodePembayaran;
-use kartik\date\DatePicker;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Projek */
 /* @var $form yii\widgets\ActiveForm */
+
+
 ?>
-
-
 <div class="row">
     <div class="col-sm-6">
         <div class="projek-form">
@@ -31,7 +33,8 @@ use kartik\date\DatePicker;
                 'readonly' => true,
                 'pluginOptions' => [
                     'autoclose'=>true,
-                    'format'=>'yyyy-mm-dd'
+                    'format'=>'yyyy-mm-dd',
+                    'todayHighlight' => true
                 ]
             ]);?>
 
@@ -40,7 +43,8 @@ use kartik\date\DatePicker;
                 'readonly' => true,
                 'pluginOptions' => [
                     'autoclose'=>true,
-                    'format'=>'yyyy-mm-dd'  
+                    'format'=>'yyyy-mm-dd',
+                    'todayHighlight' => true  
                 ]
             ]);?>    
 
@@ -89,11 +93,11 @@ use kartik\date\DatePicker;
 
             <?= $form->field($model, 'status_spk')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SPK --']) ?>
             
-            <?= $form->field($model, 'status_spp_ppn')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SPP PPN --','id' => 'list_ppn']) ?>
+            <?= $form->field($model, 'status_ssp_ppn')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SSP PPN --','id' => 'list_ppn', ]) ?>
             
             <?= $form->field($model, 'pajak_ppn')->textInput(['placeholder' => 'Masukan Kode Pajak PPN'],['class' => 'nomor_ppn']); ?>
 
-            <?= $form->field($model, 'status_spp_pph')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SPP PPH --', 'id' => 'list_pph']) ?>
+            <?= $form->field($model, 'status_ssp_pph')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SsP PPH --', 'id' => 'list_pph']) ?>
 
             <?=  $form->field($model, 'pajak_pph')->textInput(['placeholder' => 'Masukan Kode Pajak PPH'],['id' => 'nomor_pph']); ?>
 
@@ -122,15 +126,22 @@ use kartik\date\DatePicker;
 
 <?php ActiveForm::end(); ?>
 
-<script type="text/javascript" >
-    $this->registerJs($script);
-    $(document).ready(function () {
+<script type="text/javascript">
+    $(document).ready(function(){
         $(document.body).on('change', '#list_ppn', function () {
             var val = $('#list_ppn').val();
-            if(val == 'Sudah') {
-              $('.nomor_ppn').show(1000);
-            } else {
-              $('.nomor_ppn').hide();
+            if(val == 'Sudah' ) {
+                $('.nomor_ppn').show(1000);
+            }else{
+                $('.nomor_ppn').hide(1000);
+            }
+        });
+        $(document.body).on('change', '#list_pph', function () {
+            var val = $('#list_pph').val();
+            if(val == 'Sudah' ) {
+                $('.nomor_pph').show(1000);
+            }else{
+                $('.nomor_pph').hide(1000);
             }
         });
     });

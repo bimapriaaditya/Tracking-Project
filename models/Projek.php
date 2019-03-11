@@ -77,7 +77,7 @@ class Projek extends \yii\db\ActiveRecord
             //
             [['kode','tanggal_mulai', 'tanggal_selesai', 'status','pajak_ppn','pajak_pph'], 'safe'],
             //
-            [['pagu', 'nilai_kontrak', 'status_kak', 'status_proposal', 'status_laporan_bulan', 'status_rab', 'status_spk', 'status_spp_ppn', 'status_spp_pph', 'status_sp2d', 'status_skb', 'status_bast', 'status_referensi_ta'], 'required'],
+            [['pagu', 'nilai_kontrak', 'status_kak', 'status_proposal', 'status_laporan_bulan', 'status_rab', 'status_spk', 'status_ssp_ppn', 'status_ssp_pph', 'status_sp2d', 'status_skb', 'status_bast', 'status_referensi_ta'], 'required'],
             //
             [['kode', 'nama', 'nos_spk', 'penanggungjawab_lapangan', 'penanggungjawab_administrasi', 'administrasi', 'jenis', 'status_admin', 'status_teknis' ], 'string', 'max'=> 255],
             //
@@ -132,8 +132,8 @@ class Projek extends \yii\db\ActiveRecord
             'status_laporan_bulan' => 'Status Laporan Bulan',
             'status_rab' => 'Status RAB',
             'status_spk' => 'Status SPK',
-            'status_spp_ppn' => 'Status SPP PPN',
-            'status_spp_pph' => 'Status SPP PPH',
+            'status_ssp_ppn' => 'Status SSP PPN',
+            'status_ssp_pph' => 'Status SSP PPH',
             'status_sp2d' => 'Status SP2D',
             'status_skb' => 'Status SKB',
             'status_bast' => 'Status BAST',
@@ -283,22 +283,22 @@ class Projek extends \yii\db\ActiveRecord
         }
     }
 
-    public function getSppPpn()
+    public function getSspPpn()
     {
-        if($this->status_spp_ppn == 'Belum'){
+        if($this->status_ssp_ppn == 'Belum'){
             return "&nbsp <span class='glyphicon glyphicon-remove' style='color:red;'> BelumTersedia </span>";
-        }elseif ($this->status_spp_ppn == 'Proses') {
+        }elseif ($this->status_ssp_ppn == 'Proses') {
             return "&nbsp <span class='glyphicon glyphicon-refresh' style='color:orange;'> SedangProses </span>";
         }else{
             return "&nbsp <span class='glyphicon glyphicon-ok'style='color:#30fb41;'> SudahSelesai </span>"; 
         }
     }
 
-    public function getSppPph()
+    public function getSspPph()
     {
-        if($this->status_spp_pph == 'Belum'){
+        if($this->status_ssp_pph == 'Belum'){
             return "&nbsp <span class='glyphicon glyphicon-remove' style='color:red;'> BelumTersedia </span>";
-        }elseif ($this->status_spp_pph == 'Proses') {
+        }elseif ($this->status_ssp_pph == 'Proses') {
             return "&nbsp <span class='glyphicon glyphicon-refresh' style='color:orange;'> SedangProses </span>";
         }else{
             return "&nbsp <span class='glyphicon glyphicon-ok'style='color:#30fb41;'> SudahSelesai </span>"; 
