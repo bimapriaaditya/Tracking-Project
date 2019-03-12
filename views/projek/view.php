@@ -134,8 +134,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'label' => '',
-                    'value' =>  (($model->status_ssp_pph == 'Belum') ? '' : 
-                                (($model->status_ssp_pph == 'Sudah')? $model->pajak_pph : 'Masih Proses' )),
+                    'value' =>  (($model->status_ssp_pph == 'Sudah') ? $model->pajak_pph : 
+                                (($model->status_ssp_pph == 'Belum')? '' : '' )),
                 ],
                 [
                     'attribute'=> 'status_sp2d',
@@ -284,17 +284,3 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php endforeach ?>
 <?php }
 ?>
-<script type="text/javascript">
-    $(document).ready(function(){
-    $("document").ready( function () {
-        alert("Hello Saya");
-    });
-        $("button").click(function(){
-            $("p").toggle("Slow");
-        });
-    });
-</script>
-
-<button>Hide</button>
-<p>This is a paragraph with little content.</p>
-<p>This is another small paragraph.</p>
