@@ -92,47 +92,22 @@ use app\models\RefMetodePembayaran;
             <?= $form->field($model, 'status_rab')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status RAB --']) ?>
 
             <?= $form->field($model, 'status_spk')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SPK --']) ?>
-            <!-- 
-            *
-            *
-            *
-            -->
-            <?= $form->field($model, 'status_ssp_ppn')->dropdownList([
-                    'Belum' => 'Belum ',
-                    'Proses' => 'Proses',
-                    'Sudah' => 'Sudah'
-                ],[
-                    'prompt' => '-- Status SSP PPN --',
-                    'id' => 'list_ppn',
-                    'onchange' => 'fun_showtextbox()'])?>
-            
-            <?= $form->field($model, 'pajak_ppn', [
-                'options' => [
-                    'style' => 'display: none;'
-                ]])->textInput(['placeholder' => 'Masukan Kode Pajak PPN'],['class' => 'nomor_ppn']); ?>
-            <!--
-            *
-            *
-            *
-            -->
-            <?= $form->field($model, 'status_ssp_pph')->dropdownList([
-                    'Belum' => 'Belum ',
-                    'Proses' => 'Proses',
-                    'Sudah' => 'Sudah'
-                ],[
-                    'prompt' => '-- Status SsP PPH --',
-                    'id' => 'list_pph'
-                ])?>
 
-            <?=  $form->field($model, 'pajak_pph',[
-                'options' => [
-                    'style' => 'display: none;'
-                ]])->textInput(['placeholder' => 'Masukan Kode Pajak PPH'],['class' => 'nomor_pph']); ?>
-            <!--
-            *
-            *
-            *
-            -->
+            <?= $form->field($model, 'status_ssp_ppn')->dropdownList(['Belum' => 'Belum ','Proses' => 'Proses','Sudah' => 'Sudah'],['prompt' => '-- Status SSP PPN --','id' => 'list_ppn'])?>
+            
+            <div class="nomor_ppn">
+
+                <?= $form->field($model, 'pajak_ppn')->textInput(['placeholder' => 'Masukan Kode Pajak PPN']); ?>
+            </div>
+
+            <?= $form->field($model, 'status_ssp_pph')->dropdownList(['Belum' => 'Belum ','Proses' => 'Proses','Sudah' => 'Sudah'],['prompt' => '-- Status SSP PPH --','id' => 'list_pph'])?>
+
+            <div class="nomor_pph">
+                
+                <?=  $form->field($model, 'pajak_pph')->textInput(['placeholder' => 'Masukan Kode Pajak PPH']); ?>
+
+            </div>
+
 
             <?= $form->field($model, 'status_sp2d')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SP2D --']) ?>
 
@@ -143,17 +118,6 @@ use app\models\RefMetodePembayaran;
             <?= $form->field($model, 'status_referensi_ta')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status Referensi TA --']) ?>
 
             <?= $form->field($model, 'status_pembelian_barang')->textInput() ?>
-
-            <!-- <div>
-
-                <h3>Bukti Pajak</h3>
-                <br>
-                <?= Html::checkbox('', false, ['label' => 'Pajak PPN'],['onchange'=>'showHide(this)']);?>
-                <div>&nbsp;</div>
-                <?= Html::checkbox('', false, ['label' => 'Pajak PPH']); ?>
-                <div>&nbsp;</div>
-
-            </div> -->
 
             <?= $form->field($model, 'administrasi')->textInput(['maxlength' => true]) ?>
 
@@ -168,55 +132,29 @@ use app\models\RefMetodePembayaran;
     <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
 </div>
 
+
 <?php ActiveForm::end(); ?>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        function fun_showtextbox() {
-            var show_ppn = $('#list_ppn').val();
+        $('.nomor_ppn').hide();
+        $('.nomor_pph').hide();
+        $(document.body).on('change', '#list_ppn', function () {
+            var val = $('#list_ppn').val();
+            $('.nomor_ppn').hide('slow');
+            if(val == 'Sudah' ) {
+                console.log(val);
+                $('.nomor_ppn').show('slow');
+            } 
 
-            if(show_ppn == 'Sudah'){
-                $('.nomor_ppn').show(1000);    
-            }else{
-                $('.nomor_ppn').hide(1000); 
+        });
+        $(document.body).on('change', '#list_pph', function () {
+            var val = $('#list_pph').val();
+            $('.nomor_pph').hide('slow');
+            if(val == 'Sudah' ) {
+                console.log(val);
+                $('.nomor_pph').show('slow');
             }
-        }   
+        });
     });
 </script>
-
-<!-- function fun_showtextbox() {
-    var show_ppn = $('#list_ppn').val();
-
-    if(show_ppn == 'Sudah'){
-        $('.nomor_ppn').show(1000);    
-    }else{
-        $('.nomor_ppn').hide(1000); 
-    }
-} -->   
-
-<!-- ///////////////////////////////////////////////////////// -->
-
-<!-- function showHide(){
-    if(checked === true)
-        $(.nomor_ppn).show(1000);
-    else $(.nomor_ppn).hide(1000);
-} -->
-
-<!-- ///////////////////////////////////////////////////////// -->
-
-<!-- $(document.body).on('change', '#list_ppn', function () {
-    var val = $('#list_ppn').val();
-    if(val == 'Sudah' ) {
-        $('.nomor_ppn').show(1000);
-    }else{
-        $('.nomor_ppn').hide(1000);
-    }
-});
-$(document.body).on('change', '#list_pph', function () {
-    var val = $('#list_pph').val();
-    if(val == 'Sudah' ) {
-        $('.nomor_pph').fadeIn(1000);
-    }else{
-        $('.nomor_pph').fadeOut(1000);
-    }
-}); -->

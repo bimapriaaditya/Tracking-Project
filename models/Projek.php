@@ -366,8 +366,25 @@ class Projek extends \yii\db\ActiveRecord
         return $this->getDpp() - $this->getPph();
     }
 
-    /*public function getDppTermin()
+    public function getVisibleFixppn()
     {
-        return $this->
-    }*/
+        $nilai_ppn = $this->status_ssp_ppn;
+
+        if($nilai_ppn == 'Sudah'){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public function getVisibleFixpph()
+    {
+        $nilai_pph = $this->status_ssp_pph;
+
+        if($nilai_pph == 'Sudah'){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

@@ -123,7 +123,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                 ],
                 [
-                    'label' => '',
+                    'label' => 'No. Pajak PPN',
+                    'visible' => $model->getVisibleFixppn(),
                     'value' =>  (($model->status_ssp_ppn == 'Sudah')? $model->pajak_ppn : 
                                 (($model->status_ssp_ppn == 'Belum')? '' : '' )), 
                 ],
@@ -133,7 +134,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                 ],
                 [
-                    'label' => '',
+                    'label' => 'No. Pajak PPH',
+                    'visible' => $model->getVisibleFixpph(),
                     'value' =>  (($model->status_ssp_pph == 'Sudah') ? $model->pajak_pph : 
                                 (($model->status_ssp_pph == 'Belum')? '' : '' )),
                 ],
