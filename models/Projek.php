@@ -371,9 +371,9 @@ class Projek extends \yii\db\ActiveRecord
         $nilai_ppn = $this->status_ssp_ppn;
 
         if($nilai_ppn == 'Sudah'){
-            return false;
+            return 1;
         }else{
-            return true;
+            return 0;
         }
     }
 
@@ -382,9 +382,27 @@ class Projek extends \yii\db\ActiveRecord
         $nilai_pph = $this->status_ssp_pph;
 
         if($nilai_pph == 'Sudah'){
-            return false;
+            return 1;
         }else{
-            return true;
+            return 0;
+        }
+    }
+
+    public function getValuePpn()
+    {
+        if($this->status_ssp_ppn == 'Sudah'){
+            return $this->pajak_ppn;
+        }else{
+            return 'Belum Tersedia';
+        }
+    }
+
+    public function getValuePph()
+    {
+        if($this->status_ssp_pph == 'Sudah'){
+            return $this->pajak_pph;
+        }else{
+            return 'Belum Tersedia';
         }
     }
 }

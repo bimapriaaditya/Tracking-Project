@@ -97,7 +97,8 @@ use app\models\RefMetodePembayaran;
             
             <div class="nomor_ppn">
 
-                <?= $form->field($model, 'pajak_ppn')->textInput(['placeholder' => 'Masukan Kode Pajak PPN']); ?>
+                    <?= $form->field($model, 'pajak_ppn')->textInput(['placeholder' => 'Masukan Kode Pajak PPN']); ?>
+
             </div>
 
             <?= $form->field($model, 'status_ssp_pph')->dropdownList(['Belum' => 'Belum ','Proses' => 'Proses','Sudah' => 'Sudah'],['prompt' => '-- Status SSP PPH --','id' => 'list_pph'])?>
@@ -139,7 +140,7 @@ use app\models\RefMetodePembayaran;
     $(document).ready(function () {
         $('.nomor_ppn').hide();
         $('.nomor_pph').hide();
-        $(document.body).on('change', '#list_ppn', function () {
+        $(document.body).on('change', '#list_ppn', function (){
             var val = $('#list_ppn').val();
             $('.nomor_ppn').hide('slow');
             if(val == 'Sudah' ) {
