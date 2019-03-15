@@ -22,7 +22,7 @@ use app\models\RefMetodePembayaran;
     <div class="col-sm-6">
         <div class="projek-form">
             <?php $form = ActiveForm::begin(); ?>
-            <!-- <?= $form->field($model, 'kode')->textInput() ?> -->
+            <!-- <?= $form->field($model, 'kode')->textInput() ?> --> 
 
             <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\User;
 use app\models\ProjekTermin;
+use aryelds\sweetalert\SweetAlert;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Projek */
@@ -41,6 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'model' => $model,
             'attributes' => [
                 'kode',
+                [
+                    'label' => 'Kode Aja',
+                    'value' => $model->getKodeproject(),
+                    'format' => 'raw'
+                ],
                 'nama',
                 'tahun',
                 [

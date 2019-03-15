@@ -405,4 +405,26 @@ class Projek extends \yii\db\ActiveRecord
             return 'Belum Tersedia';
         }
     }
+
+    public function getKodeproject()
+    {
+        if($this->status == 'Pemenang'){
+            echo '18.';
+        }else{
+            echo 'PP.';
+        }if($this->id_ref_jenis_project == 1){
+            echo 'L.';
+        }else{
+            echo 'P.';
+        }if($this->jenis == 'Jasa'){
+            echo 'J.';
+        }else{
+            echo 'B.';
+        }echo '00-';
+        if($this->id_ref_perusahaan_peminjam == NULL){
+            echo 'A.';
+        }else{
+            echo 'B.';
+        }echo $this->refPerusahaanPengguna->nama;
+    }
 }

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\RefInstansi;
 use app\models\User;
+use aryelds\sweetalert\SweetAlert;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProjekSearch */
@@ -107,5 +108,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'text-align: center;'],
             ],
         ],
-    ]); ?>
+
+    ]); 
+   /* echo SweetAlert::widget([
+        'options' => [
+            'title' => "Are you sure?",
+            'text' => "You will not be able to recover this imaginary file!",
+            'type' => SweetAlert::TYPE_WARNING,
+            'showCancelButton' => true,
+            'confirmButtonColor' => "#DD6B55",
+            'confirmButtonText' => "Yes, delete it!",
+            'cancelButtonText' => "No, cancel plx!",
+            'closeOnConfirm' => false,
+            'closeOnCancel' => false
+        ],
+        'callbackJs' => new \yii\web\JsExpression(' function(isConfirm) {
+            if (isConfirm) { 
+                swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            } else { 
+                swal("Cancelled", "Your imaginary file is safe :)", "error");
+            }
+        }')
+    ]);*/
+?>
 </div>
+

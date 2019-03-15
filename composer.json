@@ -19,7 +19,9 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "kartik-v/yii2-widget-datepicker": "@dev",
-        "3ch3r46/yii2-bootui": "*"
+        "yii2mod/yii2-sweet-alert": "*",
+        "aryelds/yii2-sweet-alert": "@dev"
+
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
