@@ -9,6 +9,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     const ADMIN = 1;
     const PIMPINAN = 2;
+    const TEKNIS = 3;
  
 
     public static function tableName()
@@ -120,5 +121,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return false;   
     }
 
+    public function isTeknis()
+    {
+        if(Yii::$app->user->identity->id_role == self::TEKNIS){
+            return true;
+        }
+        return false;
+    }
 
 }

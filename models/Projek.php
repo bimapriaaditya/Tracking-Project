@@ -408,23 +408,26 @@ class Projek extends \yii\db\ActiveRecord
 
     public function getKodeproject()
     {
+        $html = null;
         if($this->status == 'Pemenang'){
-            echo '18.';
+            $html .= '18.';
         }else{
-            echo 'PP.';
+            $html .= 'PP.';
         }if($this->id_ref_jenis_project == 1){
-            echo 'L.';
+            $html .= 'L.';
         }else{
-            echo 'P.';
+            $html .= 'P.';
         }if($this->jenis == 'Jasa'){
-            echo 'J.';
+            $html .= 'J.';
         }else{
-            echo 'B.';
-        }echo '00-';
+            $html .= 'B.';
+        }$html .= '00-'/*.Koding Untuk Menampilkan No Urutan Project*/;
         if($this->id_ref_perusahaan_peminjam == NULL){
-            echo 'A.';
+            $html .= 'A.';
         }else{
-            echo 'B.';
-        }echo $this->refPerusahaanPengguna->nama;
+            $html .= 'B.';
+        }
+        $html .= $this->refPerusahaanPengguna->nama;
+        return $html;
     }
 }

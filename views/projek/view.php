@@ -16,9 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php if (User::isAdmin()): ?> 
        <p>
             <?= Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Kembali', ['projek/index'],['class' => 'btn btn-info']); ?>
+    <?php if (User::isAdmin()): ?> 
            <?= Html::a('<i class="glyphicon glyphicon-pencil"></i> Update', ['update', 'id' => $model->id],['class' => 'btn btn-primary']); ?>
            <?= Html::a('<i class="glyphicon glyphicon-trash"></i> Delete', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]);?>
        </p>
     <?php endif ?>
-
+    <div>&nbsp;</div>
     <label>Progres Project : <?php echo $model->getProgress() ?></label>
     <div class="progress">
         <div class="progress-bar progress-bar-striped active" role="progressbar"style="width:<?php echo $model->getProgress() ?>;"> 
@@ -42,11 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'model' => $model,
             'attributes' => [
                 'kode',
-                [
-                    'label' => 'Kode Aja',
-                    'value' => $model->getKodeproject(),
-                    'format' => 'raw'
-                ],
                 'nama',
                 'tahun',
                 [
@@ -170,123 +165,127 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
     </div>
 </div>
-<h2>Metode Pembayaran : <b><?php echo $model->getMetodeBayar() ?></b> </h2>
-<?php 
-    if($model->id_ref_metode_pembayaran == 1){
-        echo DetailView::widget([
-            'model' => $model,
-            'attributes' => [
-                [   
-                    'label' => 'Nilai Kontrak'  ,
-                    'value' => "Rp. ".number_format($model->nilai_kontrak,2),
-                    'format' => 'raw',
-                ],
-                [
-                    'label'=> 'DPP',
-                    'value' => "Rp. ". number_format($model->getDpp()).",00",
-                    'format' => 'raw',
-                ],
-                [
-                    'label'=> 'PPN',
-                    'value' => "Rp. ". number_format($model->getPpn()).",00",
-                    'format' => 'raw',
-                ],
-                [
-                    'label'=> 'PPH',
-                    'value' => "Rp. ". number_format($model->getPph()).",00",
-                    'format' => 'raw',
-                ],
-                [
-                    'label'=> 'NET',
-                    'value' => "Rp. ". number_format($model->getNet()).",00",
-                    'format' => 'raw',
-                ]
-            ]
-        ]); 
-    }elseif ($model->id_ref_metode_pembayaran == 2){
-        if($model->sudahTiga() == true){
-            echo '&nbsp;';
-        }elseif(User::isAdmin()){
-            echo '&nbsp;';
-            echo Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Termin', ['projek-termin/create','id_projek' => $model->id],['class' => 'btn btn-success']);
-        }?>
-    <table class="table table-borderd table-hover">
-        <thead>
-            <tr>
-                <th>Termin</th>
-                <th>Progress Termin</th>
-                <th>Hasil</th>
-                <th>Keterangan</th>
-                <th>&nbsp;</th>
-            </tr>
-            <?php foreach (ProjekTermin::find()
-                ->andWhere(['id_projek' => $model->id])
-                ->orderby(['termin' => SORT_ASC])
-                ->all() as $ProjekTermin): ?>
-                <tr>
-                    <td><?= $ProjekTermin->termin; ?> Termin</td>
-                    <td><?= $ProjekTermin->persen; ?>%</td>
-                    <td>Rp.<?= number_format($ProjekTermin->jumlah)?>,00</td>
-                    <td><?= $ProjekTermin->keterangan; 
-                        if($ProjekTermin->keterangan == ''){
-                            echo "-";
-                        } ?>
-                    </td>
-                    <td><?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['projek-termin/update', 'id' => $ProjekTermin->id]); ?>
-                        <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['projek-termin/delete','id' => $ProjekTermin->id],[
-                                'data' => [
-                                    'confirm' => 'Are you sure you want to delete this item?',
-                                    'method' => 'post',
-                                ]
-                            ]); 
-                        ?>
-                    </td>
-                </tr>
-            <?php endforeach ?>
-        </thead>
-    </table>
-    <?php foreach (ProjekTermin::find()
-        ->andWhere(['id_projek' => $model->id])
-        ->orderby(['termin' => SORT_ASC])
-        ->all() as $NilaiTermin): ?>
-        <div class="col-sm-4">
-            <h3><b> Termin : <?php echo $NilaiTermin->termin; ?></b></h3>
-            <?= DetailView::widget([
-                    'model' => $NilaiTermin,
-                    'attributes' => [
-                        [   
-                            'attribute' => 'nilai_kontrak',
-                            'value' => "Rp. ".number_format($model->nilai_kontrak,2)
-                        ],
-                        [
-                            'label' => 'Hasil Termin',
-                            'value' => 'Rp.'. number_format($NilaiTermin->jumlah).',00',
-                            'format' => 'raw',
-                        ],
-                        [
-                            'label'=> 'DPP',
-                            'value' => "Rp. ". number_format($NilaiTermin->getDppTermin()).",00",
-                            'format' => 'raw',
-                        ],
-                        [
-                            'label'=> 'PPN',
-                            'value' => "Rp. ". number_format($NilaiTermin->getPpnTermin()).",00",
-                            'format' => 'raw',
-                        ],
-                        [
-                            'label'=> 'PPH',
-                            'value' => "Rp. ". number_format($NilaiTermin->getPphTermin()).",00",
-                            'format' => 'raw',
-                        ],
-                        [
-                            'label'=> 'NET',
-                            'value' => "Rp. ". number_format($NilaiTermin->getNetTermin()).",00",
-                            'format' => 'raw',
-                        ]
+<?php if (User::isAdmin() || User::isPimpinan()): ?>
+    <h2>Metode Pembayaran : <b><?php echo $model->getMetodeBayar() ?></b> </h2>
+    <?php 
+        if($model->id_ref_metode_pembayaran == 1){
+            echo DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    [   
+                        'label' => 'Nilai Kontrak'  ,
+                        'value' => "Rp. ".number_format($model->nilai_kontrak,2),
+                        'format' => 'raw',
+                    ],
+                    [
+                        'label'=> 'DPP',
+                        'value' => "Rp. ". number_format($model->getDpp()).",00",
+                        'format' => 'raw',
+                    ],
+                    [
+                        'label'=> 'PPN',
+                        'value' => "Rp. ". number_format($model->getPpn()).",00",
+                        'format' => 'raw',
+                    ],
+                    [
+                        'label'=> 'PPH',
+                        'value' => "Rp. ". number_format($model->getPph()).",00",
+                        'format' => 'raw',
+                    ],
+                    [
+                        'label'=> 'NET',
+                        'value' => "Rp. ". number_format($model->getNet()).",00",
+                        'format' => 'raw',
                     ]
-                ]);
-            ?> 
-        </div>
-    <?php endforeach ?>
-<?php }
-?>
+                ]
+            ]); 
+        }elseif ($model->id_ref_metode_pembayaran == 2){
+            if($model->sudahTiga() == true){
+                echo '&nbsp;';
+            }elseif(User::isAdmin()) {
+                echo '&nbsp;';
+                echo Html::a('<i class="glyphicon glyphicon-plus"></i> Tambah Termin', ['projek-termin/create','id_projek' => $model->id],['class' => 'btn btn-success']);
+            }?>
+        <table class="table table-borderd table-hover">
+            <thead>
+                <tr>
+                    <th>Termin</th>
+                    <th>Progress Termin</th>
+                    <th>Hasil</th>
+                    <th>Keterangan</th>
+                    <th>&nbsp;</th>
+                </tr>
+                <?php foreach (ProjekTermin::find()
+                    ->andWhere(['id_projek' => $model->id])
+                    ->orderby(['termin' => SORT_ASC])
+                    ->all() as $ProjekTermin): ?>
+                    <tr>
+                        <td><?= $ProjekTermin->termin; ?> Termin</td>
+                        <td><?= $ProjekTermin->persen; ?>%</td>
+                        <td>Rp.<?= number_format($ProjekTermin->jumlah)?>,00</td>
+                        <td><?= $ProjekTermin->keterangan; 
+                            if($ProjekTermin->keterangan == ''){
+                                echo "-";
+                            } ?>
+                        </td>
+                        <td>
+                            <?php if (User::isAdmin()): ?> 
+                                <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['projek-termin/update', 'id' => $ProjekTermin->id]); ?>
+                                <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['projek-termin/delete','id' => $ProjekTermin->id],[
+                                        'data' => [
+                                            'confirm' => 'Are you sure you want to delete this item?',
+                                            'method' => 'post',
+                                        ]
+                                    ]); 
+                                ?>
+                            <?php endif ?>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </thead>
+        </table>
+        <?php foreach (ProjekTermin::find()
+            ->andWhere(['id_projek' => $model->id])
+            ->orderby(['termin' => SORT_ASC])
+            ->all() as $NilaiTermin): ?>
+            <div class="col-sm-4">
+                <h3><b> Termin : <?php echo $NilaiTermin->termin; ?></b></h3>
+                <?= DetailView::widget([
+                        'model' => $NilaiTermin,
+                        'attributes' => [
+                            [   
+                                'attribute' => 'nilai_kontrak',
+                                'value' => "Rp. ".number_format($model->nilai_kontrak,2)
+                            ],
+                            [
+                                'label' => 'Hasil Termin',
+                                'value' => 'Rp.'. number_format($NilaiTermin->jumlah).',00',
+                                'format' => 'raw',
+                            ],
+                            [
+                                'label'=> 'DPP',
+                                'value' => "Rp. ". number_format($NilaiTermin->getDppTermin()).",00",
+                                'format' => 'raw',
+                            ],
+                            [
+                                'label'=> 'PPN',
+                                'value' => "Rp. ". number_format($NilaiTermin->getPpnTermin()).",00",
+                                'format' => 'raw',
+                            ],
+                            [
+                                'label'=> 'PPH',
+                                'value' => "Rp. ". number_format($NilaiTermin->getPphTermin()).",00",
+                                'format' => 'raw',
+                            ],
+                            [
+                                'label'=> 'NET',
+                                'value' => "Rp. ". number_format($NilaiTermin->getNetTermin()).",00",
+                                'format' => 'raw',
+                            ]
+                        ]
+                    ]);
+                ?> 
+            </div>
+        <?php endforeach ?>
+    <?php }?>
+<?php endif ?>
