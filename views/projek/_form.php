@@ -138,23 +138,32 @@ use app\models\RefMetodePembayaran;
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.nomor_ppn').hide();
-        $('.nomor_pph').hide();
+        if('#list_ppn' == 'Sudah'){
+            $('.nomor_ppn').show();
+        }else{
+            $('.nomor_ppn').hide();
+        }
         $(document.body).on('change', '#list_ppn', function (){
             var val = $('#list_ppn').val();
             $('.nomor_ppn').hide('slow');
             if(val == 'Sudah' ) {
                 console.log(val);
-                $('.nomor_ppn').show('slow');
+                $('.nomor_ppn').toggle('slow');
             } 
 
         });
+
+        if('#list_pph' == 'Sudah'){
+            $('.nomor_pph').show();    
+        }else{
+            $('.nomor_pph').hide();
+        }
         $(document.body).on('change', '#list_pph', function () {
             var val = $('#list_pph').val();
             $('.nomor_pph').hide('slow');
             if(val == 'Sudah' ) {
                 console.log(val);
-                $('.nomor_pph').show('slow');
+                $('.nomor_pph').toggle('slow');
             }
         });
     });

@@ -81,6 +81,8 @@ class ProjekController extends Controller
         
         if ($model->load(Yii::$app->request->post())){
             $model->kode = $model->getKodeproject();
+            $model->rentang_waktu = $model->getRangeTime();
+            $model->batas_waktu = $model->Deadline();
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -105,6 +107,8 @@ class ProjekController extends Controller
 
         if ($model->load(Yii::$app->request->post())){  
             $model->kode = $model->getKodeproject();
+            $model->rentang_waktu = $model->getRangeTime();
+            $model->batas_waktu = $model->getDeadline();
             if($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

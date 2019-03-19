@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use DateTime;
 
 /**
  * This is the model class for table "projek".
@@ -75,7 +76,7 @@ class Projek extends \yii\db\ActiveRecord
             //
             [['progress'], 'integer', 'max' => 100, 'min' => 1],
             //
-            [['kode','tanggal_mulai', 'tanggal_selesai', 'status','pajak_ppn','pajak_pph'], 'safe'],
+            [['kode','tanggal_mulai', 'tanggal_selesai', 'status','pajak_ppn','pajak_pph','urutan','rentang_waktu','batas_waktu'], 'safe'],
             //
             [['pagu', 'nilai_kontrak', 'status_kak', 'status_proposal', 'status_laporan_bulan', 'status_rab', 'status_spk', 'status_ssp_ppn', 'status_ssp_pph', 'status_sp2d', 'status_skb', 'status_bast', 'status_referensi_ta'], 'required'],
             //
@@ -107,6 +108,7 @@ class Projek extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'kode' => 'Kode Project',
+            'urutan' => 'urutan',
             'nama' => 'Nama Project',
             'tahun' => 'Tahun',
             'tanggal_mulai' => 'Tanggal Mulai',
@@ -143,7 +145,9 @@ class Projek extends \yii\db\ActiveRecord
             'progress' => 'Progress Project',
             'keterangan' => 'Keterangan',
             'pajak_ppn' => 'Pajak PPN',
-            'pajak_pph' => 'Pajak PPH'
+            'pajak_pph' => 'Pajak PPH',
+            'rentang_waktu' => 'Rentang Waktu Project',
+            'batas_waktu' => 'Batas Waktu Project'
         ];
     }
 
@@ -406,9 +410,15 @@ class Projek extends \yii\db\ActiveRecord
         }
     }
 
+   /* public function setUrutanProject()
+    {
+         
+    }*/
+
     public function getKodeproject()
     {
         $html = null;
+
         if($this->status == 'Pemenang'){
             $html .= '18.';
         }else{
@@ -421,13 +431,46 @@ class Projek extends \yii\db\ActiveRecord
             $html .= 'J.';
         }else{
             $html .= 'B.';
-        }$html .= '00-'/*.Koding Untuk Menampilkan No Urutan Project*/;
+        }
+        $html .= '00-'/*.Tambah Function getUrutanProject() Untuk Menampilkan Urutan Project*/;
         if($this->id_ref_perusahaan_peminjam == NULL){
             $html .= 'A.';
         }else{
             $html .= 'B.';
         }
         $html .= $this->refPerusahaanPengguna->nama;
+
         return $html;
+    }
+
+    public function getRangeTime()
+    { 
+        $awal  = new DateTime($this->tanggal_mulai);
+        $akhir = new DateTime($this->tanggal_selesai);
+        $diff  = $awal->diff($akhir);
+
+        $rentang = null;
+
+        $rentang .= $diff->y . ' Tahun, ';
+        $rentang .= $diff->m . ' Bulan, ';
+        $rentang .= $diff->d . ' Hari ';
+        
+        return $rentang;
+
+    }
+
+    public function getDeadline()
+    {
+        $awal = new DateTime($this->tanggal_selesai);
+        $sekarang = new DateTime();
+        $diff = $awal->diff($sekarang);
+
+        $deadline =null;
+
+        $deadline .= $diff->y . ' Tahun, ';
+        $deadline .= $diff->m . ' Bulan, ';
+        $deadline .= $diff->d . ' Hari ';       
+
+        return $deadline; 
     }
 }

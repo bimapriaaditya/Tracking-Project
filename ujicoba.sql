@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2019 at 05:34 AM
+-- Generation Time: Mar 19, 2019 at 04:43 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -42,7 +42,8 @@ CREATE TABLE `bukti_pajak` (
 
 CREATE TABLE `projek` (
   `id` int(11) NOT NULL,
-  `kode` varchar(255) NOT NULL,
+  `kode` varchar(255) DEFAULT NULL,
+  `urutan` bigint(20) DEFAULT NULL,
   `nama` varchar(255) NOT NULL,
   `tahun` int(11) DEFAULT NULL,
   `tanggal_mulai` date NOT NULL,
@@ -61,42 +62,40 @@ CREATE TABLE `projek` (
   `status_admin` varchar(255) DEFAULT NULL,
   `status_teknis` varchar(255) DEFAULT NULL,
   `status_kak` enum('Belum','Proses','Sudah') NOT NULL,
-  `status_proposal` enum('','Belum','Proses','Sudah') NOT NULL,
-  `status_laporan_bulan` enum('','Belum','Proses','Sudah') NOT NULL,
-  `status_rab` enum('','Belum','Proses','Sudah') NOT NULL,
-  `status_spk` enum('','Belum','Proses','Sudah') NOT NULL,
-  `status_spp_ppn` enum('','Belum','Proses','Sudah') NOT NULL,
-  `status_spp_pph` enum('','Belum','Proses','Sudah') NOT NULL,
-  `status_sp2d` enum('','Belum','Proses','Sudah') NOT NULL,
-  `status_skb` enum('','Belum','Proses','Sudah') NOT NULL,
-  `status_bast` enum('','Belum','Proses','Sudah') NOT NULL,
-  `status_referensi_ta` enum('','Belum','Proses','Sudah') NOT NULL,
+  `status_proposal` enum('Belum','Proses','Sudah') NOT NULL,
+  `status_laporan_bulan` enum('Belum','Proses','Sudah') NOT NULL,
+  `status_rab` enum('Belum','Proses','Sudah') NOT NULL,
+  `status_spk` enum('Belum','Proses','Sudah') NOT NULL,
+  `status_ssp_ppn` enum('Belum','Proses','Sudah') NOT NULL,
+  `status_ssp_pph` enum('','Belum','Proses','Sudah') NOT NULL,
+  `status_sp2d` enum('Belum','Proses','Sudah') NOT NULL,
+  `status_skb` enum('Belum','Proses','Sudah') NOT NULL,
+  `status_bast` enum('Belum','Proses','Sudah') NOT NULL,
+  `status_referensi_ta` enum('Belum','Proses','Sudah') NOT NULL,
   `status_pembelian_barang` varchar(255) DEFAULT NULL,
   `administrasi` varchar(255) DEFAULT NULL,
-  `progress` int(3) NOT NULL,
+  `progress` int(3) DEFAULT NULL,
   `keterangan` text,
   `pagu` float(20,0) DEFAULT NULL,
   `nilai_kontrak` decimal(20,0) DEFAULT NULL,
   `nilai_akhir` decimal(20,5) NOT NULL,
-  `jenis` varchar(255) NOT NULL
+  `jenis` varchar(255) NOT NULL,
+  `pajak_ppn` text,
+  `pajak_pph` text,
+  `rentang_waktu` varchar(255) DEFAULT NULL,
+  `batas_waktu` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `projek`
 --
 
-INSERT INTO `projek` (`id`, `kode`, `nama`, `tahun`, `tanggal_mulai`, `tanggal_selesai`, `status`, `id_ref_instansi`, `id_ref_jenis_project`, `id_ref_perusahaan_pengguna`, `id_ref_perusahaan_peminjam`, `id_ref_lokasi`, `id_ref_kriteria`, `id_ref_metode_pembayaran`, `nos_spk`, `penanggungjawab_lapangan`, `penanggungjawab_administrasi`, `status_admin`, `status_teknis`, `status_kak`, `status_proposal`, `status_laporan_bulan`, `status_rab`, `status_spk`, `status_spp_ppn`, `status_spp_pph`, `status_sp2d`, `status_skb`, `status_bast`, `status_referensi_ta`, `status_pembelian_barang`, `administrasi`, `progress`, `keterangan`, `pagu`, `nilai_kontrak`, `nilai_akhir`, `jenis`) VALUES
-(1, '18.L.J.004-A.BIT', 'ULA', 2018, '2018-04-23', '2018-08-21', 'Pemenang', 14, 1, 3, NULL, 2, 2, 2, '027/1964/Pusdatin', 'Fulan1', 'Fulan2', 'Ada', 'Ada juga', 'Belum', 'Belum', 'Belum', 'Belum', 'Sudah', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', '', 'Tidak', 80, '', 445750016, '426520608', '0.00000', 'Jasa'),
-(2, '18.L.J.005-A.Hegar Daya', 'Jasa Konsultasi Pengembangan Sistem Evaluasi Dan Monitoring Media', 2018, '2018-08-10', '2018-12-30', 'Pemenang', 12, 1, 6, NULL, 2, 2, 1, 'SPPBJ/17/VIII/2018/JASA KONSULTANSI', '', '', '', '', 'Belum', 'Belum', 'Belum', 'Belum', 'Sudah', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', '', '', 100, '', 14892527616, '14892527616', '0.00000', 'Jasa'),
-(3, '18.P.J.007-A.KABAYAN', 'Jasa Konsultansi Pembangunan Website Versi Mobile', 2018, '2018-03-02', '2018-05-02', 'Pemenang', 8, 3, 5, NULL, 1, 2, 2, '047 / 1024 / PEGUM', '', '', NULL, NULL, 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', NULL, '', 75, '', 49390000, '49390000', '0.00000', 'Jasa'),
-(34, '18.P.J.007-A.KABAYAN', 'Jasa Konsultansi Pembangunan Website Versi Mobile', 2018, '2018-03-02', '2018-05-02', 'Pemenang', 8, 3, 5, NULL, 1, 2, 2, '047 / 1024 / PEGUM', '', '', NULL, NULL, 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', NULL, '', 75, '', 49390000, '49390000', '0.00000', 'Jasa'),
-(35, '18.P.J.007-A.KABAYAN', 'Jasa Konsultansi Pembangunan Website Versi Mobile', 2018, '2018-03-02', '2018-05-02', 'Pemenang', 8, 3, 5, NULL, 1, 2, 2, '047 / 1024 / PEGUM', '', '', NULL, NULL, 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', NULL, '', 75, '', 49390000, '49390000', '0.00000', 'Jasa'),
-(36, '18.L.J.0010-A.BIT', 'Entry Data Base Arsip', 2018, '2018-06-22', '2018-11-18', 'Pemenang', 10, 1, 3, NULL, 1, 2, 2, '003/PPK/Entry-DB/Distaru/2018', '', '', NULL, NULL, 'Belum', 'Belum', 'Belum', 'Belum', 'Sudah', 'Sudah', 'Sudah', 'Belum', 'Belum', 'Belum', 'Belum', NULL, '', 0, '', 299777504, '327415008', '0.00000', 'Jasa'),
-(37, '18.L.J.005-A.Hegar Daya', 'Jasa Konsultasi Pengembangan Sistem Evaluasi Dan Monitoring Media', 2018, '2018-08-10', '2018-12-30', 'Pemenang', 12, 1, 6, NULL, 2, 2, 1, 'SPPBJ/17/VIII/2018/JASA KONSULTANSI', '', '', '', '', 'Belum', 'Belum', 'Belum', 'Belum', 'Sudah', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', '', '', 100, '', 14892527616, '14892527616', '0.00000', 'Jasa'),
-(38, '18.P.J.007-A.KABAYAN', 'Jasa Konsultansi Pembangunan Website Versi Mobile', 2018, '2018-03-02', '2018-05-02', 'Pemenang', 8, 3, 5, NULL, 1, 2, 2, '047 / 1024 / PEGUM', '', '', NULL, NULL, 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', NULL, '', 75, '', 49390000, '49390000', '0.00000', 'Jasa'),
-(39, '18.L.J.004-A.BIT', 'ULA', 2018, '2018-04-23', '2018-08-21', 'Pemenang', 14, 1, 3, NULL, 2, 2, 2, '027/1964/Pusdatin', 'Fulan1', 'Fulan2', 'Ada', 'Ada juga', 'Belum', 'Belum', 'Belum', 'Belum', 'Sudah', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', '', 'Tidak', 80, '', 445750016, '426520608', '0.00000', 'Jasa'),
-(40, '18.L.J.0010-A.BIT', 'Entry Data Base Arsip', 2018, '2018-06-22', '2018-11-18', 'Pemenang', 10, 1, 3, NULL, 1, 2, 2, '003/PPK/Entry-DB/Distaru/2018', '', '', '', '', 'Belum', 'Belum', 'Belum', 'Belum', 'Sudah', 'Sudah', 'Sudah', 'Belum', 'Belum', 'Belum', 'Belum', '', '', 87, '', 299777504, '327415008', '0.00000', 'Jasa'),
-(41, '18.P.J.001-A.PT BIT', 'IT Support', 2019, '2019-03-09', '2019-05-11', 'Potensi Project', 1, 2, 1, 1, 2, 2, 1, '027/1964/Pusdatin', '', '', '', '', 'Belum', 'Belum', 'Belum', 'Sudah', 'Proses', 'Proses', 'Proses', 'Proses', 'Belum', 'Belum', 'Belum', '', '', 87, 'Ini adalah keterangan nya ', 20000000000, '20000000000', '0.00000', 'Jasa');
+INSERT INTO `projek` (`id`, `kode`, `urutan`, `nama`, `tahun`, `tanggal_mulai`, `tanggal_selesai`, `status`, `id_ref_instansi`, `id_ref_jenis_project`, `id_ref_perusahaan_pengguna`, `id_ref_perusahaan_peminjam`, `id_ref_lokasi`, `id_ref_kriteria`, `id_ref_metode_pembayaran`, `nos_spk`, `penanggungjawab_lapangan`, `penanggungjawab_administrasi`, `status_admin`, `status_teknis`, `status_kak`, `status_proposal`, `status_laporan_bulan`, `status_rab`, `status_spk`, `status_ssp_ppn`, `status_ssp_pph`, `status_sp2d`, `status_skb`, `status_bast`, `status_referensi_ta`, `status_pembelian_barang`, `administrasi`, `progress`, `keterangan`, `pagu`, `nilai_kontrak`, `nilai_akhir`, `jenis`, `pajak_ppn`, `pajak_pph`, `rentang_waktu`, `batas_waktu`) VALUES
+(45, 'PP.P.J.00-B.PT BIT', NULL, 'Belanja Jasa Konsultansi Pengembangan Sistem Informasi Bangrir - Pengembangan Sistem Informasi Manajemen Karir', 2019, '2019-02-10', '2019-08-10', 'Potensi Project', 19, 3, 1, 9, 6, 3, 1, '5132.008.063 B/Kontrak/PPK-PNBP/6/2018', '', '', '', '', 'Belum', 'Belum', 'Proses', 'Proses', 'Sudah', 'Sudah', 'Sudah', 'Sudah', 'Belum', 'Belum', 'Sudah', '', '', 67, '', 14560000, '14560000', '0.00000', 'Jasa', 'Nomor nya', '12345678910', '0 Tahun, 6 Bulan, 0 Hari, ', NULL),
+(46, 'PP.P.J.00-B.Kabayan', NULL, 'Belanja Jasa Konsultansi Pengembangan Sistem Informasi Bangrir - Pengembangan Sistem Informasi Manajemen Karir', 2019, '2019-02-10', '2019-08-10', 'Potensi Project', 19, 3, 5, 9, 6, 3, 2, '5132.008.063 B/Kontrak/PPK-PNBP/6/2018', '', '', '', '', 'Belum', 'Belum', 'Proses', 'Proses', 'Sudah', 'Sudah', 'Sudah', 'Sudah', 'Belum', 'Belum', 'Sudah', '', '', 67, '', 14560000, '14560000', '0.00000', 'Jasa', 'No. Pajak PPN Nya Ada', 'No. Pajak PPh Juga Ada', '0 Tahun, 6 Bulan, 0 Hari, ', NULL),
+(47, '18.P.J.00-A.PT BIT', NULL, 'PKL (Praktek Kerja Lapangan) SMKN 2 Bandung ', 2018, '2019-01-07', '2019-04-07', 'Pemenang', 18, 2, 1, NULL, 1, 1, 2, '2040/D7.12/KU/2018', '', '', '', '', 'Belum', 'Belum', 'Belum', 'Belum', 'Sudah', 'Sudah', 'Belum', 'Belum', 'Belum', 'Sudah', 'Belum', '', '', 35, 'Tidak Ada Keterangan Lebih Lanjut', 198171600, '197230000', '0.00000', 'Jasa', 'Ini No. Pajak PPN', '', '0 Tahun, 3 Bulan, 0 Hari ', '0 Tahun, 0 Bulan, 18 Hari '),
+(48, '18.L.J.00-A.Waditra', NULL, 'IT Support', 2018, '2018-04-24', '2018-05-27', 'Pemenang', 14, 1, 4, NULL, 2, 2, 1, '800/1264.A/Biro Kepeg/2018', '', '', '', '', 'Belum', 'Belum', 'Belum', 'Belum', 'Sudah', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', '', '', 67, '', 424632992, '424633000', '0.00000', 'Jasa', '', '', '0 Tahun, 1 Bulan, 3 Hari ', NULL),
+(49, '18.L.J.00-A.Hegar Daya', NULL, 'Pembuatan Sistem Perizinan Elektronik PTSP ', 2018, '2018-06-01', '2018-10-31', 'Pemenang', 4, 1, 6, NULL, 4, 2, 2, '5132.008.063 B/Kontrak/PPK-PNBP/6/2018', '', '', '', '', 'Belum', 'Belum', 'Belum', 'Belum', 'Sudah', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', 'Belum', '', '', 44, 'Termin Baru Dimulai', 942899968, '849000000', '0.00000', 'Jasa', '123456', '12345678910', '0 Tahun, 4 Bulan, 29 Hari, ', NULL);
 
 -- --------------------------------------------------------
 
@@ -109,7 +108,7 @@ CREATE TABLE `projek_termin` (
   `id_projek` int(11) NOT NULL,
   `termin` int(11) NOT NULL,
   `persen` int(11) NOT NULL,
-  `jumlah` int(11) NOT NULL,
+  `jumlah` int(11) DEFAULT NULL,
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -118,14 +117,14 @@ CREATE TABLE `projek_termin` (
 --
 
 INSERT INTO `projek_termin` (`id`, `id_projek`, `termin`, `persen`, `jumlah`, `keterangan`) VALUES
-(15, 40, 1, 13, 3000000, 'Tidak Ada Keterangan Lanjutan'),
-(16, 39, 2, 45, 2000000, ''),
-(27, 1, 1, 20, 2000000, ''),
-(28, 1, 2, 30, 4500000, ''),
-(29, 1, 3, 50, 5600000, ''),
-(30, 40, 2, 43, 4300000, ''),
-(31, 39, 1, 21, 3100000, ''),
-(32, 40, 2, 43, 4300000, '');
+(59, 42, 1, 30, 3862950, ''),
+(60, 42, 2, 45, 5794425, ''),
+(61, 42, 3, 25, 3219125, ''),
+(63, 44, 1, 36, 5241600, ''),
+(64, 44, 2, 63, 9172800, ''),
+(65, 46, 1, 29, 4222400, 'Tidak Ada'),
+(66, 47, 1, 24, 47335200, 'Ini Termin Pertamanya'),
+(67, 49, 1, 30, 254700000, '');
 
 -- --------------------------------------------------------
 
@@ -257,7 +256,7 @@ INSERT INTO `ref_metode_pembayaran` (`id`, `nama`) VALUES
 
 CREATE TABLE `ref_perusahaan` (
   `id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL
+  `nama` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -298,7 +297,8 @@ INSERT INTO `user` (`id`, `username`, `id_role`, `password`, `authKey`, `accessT
 (1, 'admin', 1, 'admin123', 'admin123', '321admin'),
 (2, 'pimpinan', 2, 'pimpinan123', 'pimpinan123', '321pimpinan'),
 (3, 'Bima', 1, 'Pria', '', ''),
-(4, 'Fulan1', 2, 'Fulan2', '', '');
+(4, 'Fulan1', 2, 'Fulan2', '', ''),
+(5, 'teknis', 3, 'teknis123', '', '');
 
 --
 -- Indexes for dumped tables
@@ -387,13 +387,13 @@ ALTER TABLE `bukti_pajak`
 -- AUTO_INCREMENT for table `projek`
 --
 ALTER TABLE `projek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `projek_termin`
 --
 ALTER TABLE `projek_termin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `ref_instansi`
@@ -435,7 +435,7 @@ ALTER TABLE `ref_perusahaan`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

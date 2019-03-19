@@ -55,6 +55,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'jenis',
                 'tanggal_mulai',
                 'tanggal_selesai',
+                @'rentang_waktu',
+                @'batas_waktu',
                 'status',
                 [
                     'attribute' => 'id_ref_lokasi',
