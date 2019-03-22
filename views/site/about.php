@@ -9,11 +9,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
 	<div>&nbsp;</div>
-    <h1 id="tentang_perusahaan">TENTANG PERUSAHAAN</h1>
+    <h1>TENTANG PERUSAHAAN</h1>
     <hr>
     <div id="text_panjang">
 	    <p>
-	        Ditengah arus globalisasi yang semakin deras, Bentang Inspira Teknologi (BIT) hadir untuk memfasilitasi kebutuhan masyarakat akan teknologi informasi. Perusahaan yang baru berevolusi pada tahun 2008 ini bercita-cita untuk terus melakukan inovasi kreatif di bidang Information and Communication Technology.
+	        Ditengah arus globalisasi yang semakin deras, Bentang Inspira Teknologi (BIT) hadir untuk memfasilitasi kebutuhan masyarakat akan teknologi informasi. <span id="tentang_perusahaan"> Perusahaan yang baru berevolusi </span>pada tahun 2008 ini bercita-cita untuk terus melakukan inovasi kreatif di bidang Information and Communication Technology.
 	    </p>
 	    <div>&nbsp;</div>
 	    <p>
@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    <div>&nbsp;</div>
 	    <p style="text-align: right;"><b>V.0.0.1 Dibuat Oleh : </b> <br> 
 	    	Bima Pria Aditya & Risman Taufik Rohendi <br>
+	    	<b>Line : </b> bimapria_4420 <br>
 	    	PKL SMK Negeri 2 Bandung <br>
 	    	<b>07/04/2019</b>
 	    </p>

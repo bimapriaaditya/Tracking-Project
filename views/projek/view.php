@@ -17,18 +17,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
        <p>
-            <?= Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Kembali', ['projek/index'],['class' => 'btn btn-info']); ?>
-    <?php if (User::isAdmin()): ?> 
-           <?= Html::a('<i class="glyphicon glyphicon-pencil"></i> Update', ['update', 'id' => $model->id],['class' => 'btn btn-primary']); ?>
-           <?= Html::a('<i class="glyphicon glyphicon-trash"></i> Delete', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
-                    'method' => 'post',
-                ],
-            ]);?>
+            <?= Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Kembali', ['index'],['class' => 'btn btn-info']); ?>
+            <?php if (User::isAdmin()): ?> 
+                   <?= Html::a('<i class="glyphicon glyphicon-pencil"></i> Update', ['update', 'id' => $model->id],['class' => 'btn btn-primary']); ?>
+                   <?= Html::a('<i class="glyphicon glyphicon-trash"></i> Delete', ['delete', 'id' => $model->id], [
+                        'class' => 'btn btn-danger',
+                        'data' => [
+                            'confirm' => 'Are you sure you want to delete this item?',
+                            'method' => 'post',
+                        ],
+                    ]);?>
+            <?php endif ?>
        </p>
-    <?php endif ?>
     <div>&nbsp;</div>
     <label>Progres Project : <?php echo $model->getProgress() ?></label>
     <div class="progress">
@@ -55,8 +55,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'jenis',
                 'tanggal_mulai',
                 'tanggal_selesai',
-                @'rentang_waktu',
-                @'batas_waktu',
+                'rentang_waktu',
+                [
+                    'label' => 'Batas Waktu',
+                    'value' => $model->getDeadline()
+                ],
                 'status',
                 [
                     'attribute' => 'id_ref_lokasi',
@@ -83,8 +86,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'nilai_kontrak',
                     'value' => "Rp. ".number_format($model->nilai_kontrak,2)
                 ],
-                'penanggungjawab_lapangan',
-                'penanggungjawab_administrasi',
             ]
         ]); ?>
     </div>
@@ -93,6 +94,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
+                'penanggungjawab_lapangan',
+                'penanggungjawab_administrasi',
                 'status_admin',
                 'status_teknis',
                 [

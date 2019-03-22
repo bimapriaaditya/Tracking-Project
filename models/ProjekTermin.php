@@ -71,4 +71,9 @@ class ProjekTermin extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Projek::className(), ['id' => 'id_projek']);
     }
+
+    /*public function set100Termin()
+    {
+        
+    }*/
 }

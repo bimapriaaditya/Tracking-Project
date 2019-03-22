@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use DateTime;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "projek".
@@ -76,7 +77,7 @@ class Projek extends \yii\db\ActiveRecord
             //
             [['progress'], 'integer', 'max' => 100, 'min' => 1],
             //
-            [['kode','tanggal_mulai', 'tanggal_selesai', 'status','pajak_ppn','pajak_pph','urutan','rentang_waktu','batas_waktu'], 'safe'],
+            [['kode','tanggal_mulai', 'tanggal_selesai', 'status','pajak_ppn','pajak_pph','urutan','rentang_waktu'], 'safe'],
             //
             [['pagu', 'nilai_kontrak', 'status_kak', 'status_proposal', 'status_laporan_bulan', 'status_rab', 'status_spk', 'status_ssp_ppn', 'status_ssp_pph', 'status_sp2d', 'status_skb', 'status_bast', 'status_referensi_ta'], 'required'],
             //
@@ -121,10 +122,10 @@ class Projek extends \yii\db\ActiveRecord
             'id_ref_perusahaan_pengguna' => 'Perusahaan Pengguna',
             'id_ref_perusahaan_peminjam' => 'Perusahaan Peminjam',
             'id_ref_kriteria' => 'Kriteria',
-            'id_ref_metode_pembayaran' => 'Metode Pembayaran Project',
+            'id_ref_metode_pembayaran' => 'Metode Pembayaran',
             'nos_spk' => 'No SPK',
-            'pagu' => 'Nilai Pagu',
-            'nilai_kontrak' => 'Nilai Kontrak',
+            'pagu' => 'Pagu',
+            'nilai_kontrak' => 'Kontrak',
             'penanggungjawab_lapangan' => 'Penanggungjawab Lapangan',
             'penanggungjawab_administrasi' => 'Penanggungjawab Administrasi',
             'status_admin' => 'Status Admin',
@@ -146,8 +147,7 @@ class Projek extends \yii\db\ActiveRecord
             'keterangan' => 'Keterangan',
             'pajak_ppn' => 'Pajak PPN',
             'pajak_pph' => 'Pajak PPH',
-            'rentang_waktu' => 'Rentang Waktu Project',
-            'batas_waktu' => 'Batas Waktu Project'
+            'rentang_waktu' => 'Rentang Waktu'
         ];
     }
 
@@ -410,10 +410,15 @@ class Projek extends \yii\db\ActiveRecord
         }
     }
 
-   /* public function setUrutanProject()
+    public function getUrutanProject()
     {
-         
-    }*/
+    	$model = Projek::find()->orderby(['urutan' => SORT_DESC])->one();
+    	if($model == NULL){
+    		return 1;
+    	}else{
+    		return  $model->urutan +1;
+    	}
+    }
 
     public function getKodeproject()
     {
@@ -432,7 +437,7 @@ class Projek extends \yii\db\ActiveRecord
         }else{
             $html .= 'B.';
         }
-        $html .= '00-'/*.Tambah Function getUrutanProject() Untuk Menampilkan Urutan Project*/;
+        $html .= '00'.$this->urutan.'-';
         if($this->id_ref_perusahaan_peminjam == NULL){
             $html .= 'A.';
         }else{
@@ -461,9 +466,9 @@ class Projek extends \yii\db\ActiveRecord
 
     public function getDeadline()
     {
-        $awal = new DateTime($this->tanggal_selesai);
+        $akhir = new DateTime($this->tanggal_selesai);
         $sekarang = new DateTime();
-        $diff = $awal->diff($sekarang);
+        $diff = $akhir->diff($sekarang);
 
         $deadline =null;
 

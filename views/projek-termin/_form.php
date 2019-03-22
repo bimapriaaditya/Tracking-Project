@@ -29,5 +29,5 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php ActiveForm::end(); ?>
-
+<!-- <?php echo $model->set100Termin() ?>  -->
 </div>

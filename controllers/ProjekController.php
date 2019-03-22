@@ -13,6 +13,7 @@ use yii\filters\AccessControl;
 /**
  * ProjekController implements the CRUD actions for Projek model.
  */
+
 class ProjekController extends Controller
 {
     /**
@@ -80,9 +81,12 @@ class ProjekController extends Controller
         $model = new Projek();
         
         if ($model->load(Yii::$app->request->post())){
-            $model->kode = $model->getKodeproject();
+
+            $model->urutan = $model->getUrutanProject();
+
             $model->rentang_waktu = $model->getRangeTime();
-            $model->batas_waktu = $model->Deadline();
+
+            $model->kode = $model->getKodeproject();
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -108,7 +112,6 @@ class ProjekController extends Controller
         if ($model->load(Yii::$app->request->post())){  
             $model->kode = $model->getKodeproject();
             $model->rentang_waktu = $model->getRangeTime();
-            $model->batas_waktu = $model->getDeadline();
             if($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
