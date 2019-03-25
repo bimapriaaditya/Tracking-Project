@@ -29,9 +29,9 @@ class ProjekTermin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_projek', 'termin', 'persen'], 'required'],
+            [['id_projek', 'termin'], 'required'],
             [['id_projek', 'termin', 'persen', 'jumlah'], 'integer'],
-            [['keterangan','jumlah'], 'safe'],
+            [['keterangan','jumlah', 'persen'], 'safe'],
         ];
     }
 

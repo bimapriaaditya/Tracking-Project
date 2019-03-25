@@ -454,13 +454,13 @@ class Projek extends \yii\db\ActiveRecord
         $akhir = new DateTime($this->tanggal_selesai);
         $diff  = $awal->diff($akhir);
 
-        $rentang = null;
+        $range_time = null;
 
-        $rentang .= $diff->y . ' Tahun, ';
-        $rentang .= $diff->m . ' Bulan, ';
-        $rentang .= $diff->d . ' Hari ';
+        $range_time .= $diff->y . ' Tahun, ';
+        $range_time .= $diff->m . ' Bulan, ';
+        $range_time .= $diff->d . ' Hari ';
         
-        return $rentang;
+        return $range_time;
 
     }
 

@@ -110,8 +110,6 @@ class ProjekController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())){  
-            $model->kode = $model->getKodeproject();
-            $model->rentang_waktu = $model->getRangeTime();
             if($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

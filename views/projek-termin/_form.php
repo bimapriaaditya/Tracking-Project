@@ -18,9 +18,11 @@ use yii\widgets\ActiveForm;
 		]
     ])->textInput() ?>
 
-    <?= $form->field($model, 'termin')->dropdownList([ 1 => '1 Termin' , 2 => '2 Termin',3 => '3 Termin'],['prompt' => '-- Masukan Termin --']) ?>
+    <?= $form->field($model, 'termin')->dropdownList([ 1 => '1 Termin' , 2 => '2 Termin',3 => '3 Termin'],['prompt' => '-- Masukan Termin --', 'id' => 'termin_ok']) ?>
 
-    <?= $form->field($model, 'persen')->textInput() ?>
+    <div class="persen">
+        <?= $form->field($model, 'persen')->textInput() ?>
+    </div>
 
     <?= $form->field($model, 'keterangan')->textarea(['rows' => 5],['maxlength' => true]) ?>
 
@@ -29,5 +31,18 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php ActiveForm::end(); ?>
-<!-- <?php echo $model->set100Termin() ?>  -->
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document.body).on('change', '#termin_ok', function (){
+            var val = $('#termin_ok').val();
+            $('.persen').show('slow');
+            if(val == 3 ) {
+                console.log(val);
+                $('.persen').hide('slow');
+            } 
+
+        });
+    });
+</script>

@@ -73,11 +73,29 @@ class ProjekTerminController extends Controller
         // $modelprojek = Projek::findOne($id_projek);
 
         if ($model->load(Yii::$app->request->post())) {
+            if($model->termin == 3){
+                $total = ProjekTermin::find()
+                    ->andWhere(['id_projek' => $model->id_projek])
+                    ->sum('persen');
+                $model->persen = 100 - $total;
+            // Cara kedua
+                /* $query = ProjekTermin::find()
+                    ->andWhere(['id_projek' => $model->id_projek])
+                    ->all();
+
+                $total = 0;
+                foreach ($query as $projekTermin) {
+                    $total = $total + $projekTermin->persen;
+                }
+                $total;
+                $model->persen = 100 - $total;*/
+            }
             // Masih Cara 1 : 
             // $model->jumlah = ($model->persen/100) * $modelprojek->nilai_kontrak;
-
             //Cara 2
             $model->jumlah = ($model->persen/100)*($model->projek->nilai_kontrak);
+
+
             if($model->save()) {
                return $this->redirect(['projek/view', 'id' => $model->id_projek]);
             }
