@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 'value' => function($data) {
                     $list = null;
-                    $list .= Html::a("<i class='glyphicon glyphicon-search'style='color:indigo;'></i>",['projek/view','id' => $data->id]).' ';
+                    $list .= Html::a("<i class='glyphicon glyphicon-eye-open'style='color:indigo;'></i>",['projek/view','id' => $data->id]).' ';
                     if (User::isAdmin()) {
                         $list .= Html::a("<i class='glyphicon glyphicon-edit' style='color:blue;'></i>",['projek/update','id' => $data->id]).' ';
                         $list .= Html::a("<i class='glyphicon glyphicon-trash'style='color:red;'></i>",['projek/delete','id' => $data->id],[

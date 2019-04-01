@@ -22,7 +22,6 @@ use app\models\RefMetodePembayaran;
     <div class="col-sm-6">
         <div class="projek-form">
             <?php $form = ActiveForm::begin(); ?>
-            <!-- <?= $form->field($model, 'kode')->textInput() ?> --> 
 
             <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
@@ -78,10 +77,12 @@ use app\models\RefMetodePembayaran;
             <?= $form->field($model, 'status_admin')->textInput() ?>
 
             <?= $form->field($model, 'status_teknis')->textInput() ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="projek-form">
+            <?php $form = ActiveForm::begin(); ?>
             <?= $form->field($model, 'id_ref_metode_pembayaran')->dropdownList(RefMetodePembayaran::getList(),['prompt' => '-- Pilih Metode Pembayaran --']) ?>      
             <?= $form->field($model, 'status_kak')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status KAK --']) ?>
 
@@ -97,7 +98,7 @@ use app\models\RefMetodePembayaran;
             
             <div class="nomor_ppn">
 
-                    <?= $form->field($model, 'pajak_ppn')->textInput(['placeholder' => 'Masukan Kode Pajak PPN']); ?>
+                <?= $form->field($model, 'pajak_ppn')->textInput(['placeholder' => 'Masukan Kode Pajak PPN']); ?>
 
             </div>
 
@@ -125,6 +126,7 @@ use app\models\RefMetodePembayaran;
             <?= $form->field($model, 'progress')->textInput(['type' => 'number', 'placeholder' => 'Input dari 1-100']) ?>
 
             <?= $form->field($model, 'keterangan')->textarea(['rows' => 5],['maxlength' => true]) ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>
@@ -132,9 +134,6 @@ use app\models\RefMetodePembayaran;
 <div class="form-group">
     <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
 </div>
-
-
-<?php ActiveForm::end(); ?>
 
 <script type="text/javascript">
     $(document).ready(function () {
