@@ -65,6 +65,10 @@ class ProjekTerminSearch extends ProjekTermin
             'termin' => $this->termin,
             'persen' => $this->persen,
             'jumlah' => $this->jumlah,
+            'ppn' => $this->ppn,
+            'pph' => $this->pph,
+            'no_ppn' => $this->no_ppn,
+            'no_pph' => $this->no_pph
         ]);
         return $dataProvider;
     }

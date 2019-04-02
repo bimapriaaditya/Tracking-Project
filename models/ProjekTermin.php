@@ -29,9 +29,9 @@ class ProjekTermin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_projek', 'termin'], 'required'],
-            [['id_projek', 'termin', 'persen', 'jumlah'], 'integer'],
-            [['keterangan','jumlah', 'persen'], 'safe'],
+            [['id_projek', 'termin', 'ppn','pph'], 'required'],
+            [['id_projek', 'termin', 'persen', 'jumlah','ppn','pph'], 'integer'],
+            [['jumlah', 'persen','no_ppn','no_pph'], 'safe'],
         ];
     }
 
@@ -46,7 +46,10 @@ class ProjekTermin extends \yii\db\ActiveRecord
             'termin' => 'Termin',
             'persen' => 'Persen',
             'jumlah' => 'Jumlah',
-            'keterangan' => 'Keterangan',
+            'ppn' => 'PPN',
+            'pph' => 'PPH',
+            'no_ppn' => 'No.PPN',
+            'no_pph' => 'No.PPH',
         ];
     }
 

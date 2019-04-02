@@ -18,11 +18,10 @@ use app\models\RefMetodePembayaran;
 
 
 ?>
-<div class="row">
-    <div class="col-sm-6">
-        <div class="projek-form">
-            <?php $form = ActiveForm::begin(); ?>
-
+<?php $form = ActiveForm::begin(); ?>
+<div class="projek-form">
+    <div class="row">
+        <div class="col-md-6">
             <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'tahun')->textInput() ?>
@@ -74,16 +73,14 @@ use app\models\RefMetodePembayaran;
 
             <?= $form->field($model, 'penanggungjawab_administrasi')->textInput() ?>
 
+        </div>
+        <div class="col-md-6">
             <?= $form->field($model, 'status_admin')->textInput() ?>
 
             <?= $form->field($model, 'status_teknis')->textInput() ?>
-            <?php ActiveForm::end(); ?>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="projek-form">
-            <?php $form = ActiveForm::begin(); ?>
-            <?= $form->field($model, 'id_ref_metode_pembayaran')->dropdownList(RefMetodePembayaran::getList(),['prompt' => '-- Pilih Metode Pembayaran --']) ?>      
+            
+            <?= $form->field($model, 'id_ref_metode_pembayaran')->dropdownList(RefMetodePembayaran::getList(),['prompt' => '-- Pilih Metode Pembayaran --']) ?> 
+
             <?= $form->field($model, 'status_kak')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status KAK --']) ?>
 
             <?= $form->field($model, 'status_proposal')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status Proposal --']) ?>
@@ -93,23 +90,6 @@ use app\models\RefMetodePembayaran;
             <?= $form->field($model, 'status_rab')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status RAB --']) ?>
 
             <?= $form->field($model, 'status_spk')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SPK --']) ?>
-
-            <?= $form->field($model, 'status_ssp_ppn')->dropdownList(['Belum' => 'Belum ','Proses' => 'Proses','Sudah' => 'Sudah'],['prompt' => '-- Status SSP PPN --','id' => 'list_ppn'])?>
-            
-            <div class="nomor_ppn">
-
-                <?= $form->field($model, 'pajak_ppn')->textInput(['placeholder' => 'Masukan Kode Pajak PPN']); ?>
-
-            </div>
-
-            <?= $form->field($model, 'status_ssp_pph')->dropdownList(['Belum' => 'Belum ','Proses' => 'Proses','Sudah' => 'Sudah'],['prompt' => '-- Status SSP PPH --','id' => 'list_pph'])?>
-
-            <div class="nomor_pph">
-                
-                <?=  $form->field($model, 'pajak_pph')->textInput(['placeholder' => 'Masukan Kode Pajak PPH']); ?>
-
-            </div>
-
 
             <?= $form->field($model, 'status_sp2d')->dropdownList(['Belum' => 'Belum ', 'Proses' => 'Proses', 'Sudah' => 'Sudah'],['prompt' => '-- Status SP2D --']) ?>
 
@@ -126,7 +106,6 @@ use app\models\RefMetodePembayaran;
             <?= $form->field($model, 'progress')->textInput(['type' => 'number', 'placeholder' => 'Input dari 1-100']) ?>
 
             <?= $form->field($model, 'keterangan')->textarea(['rows' => 5],['maxlength' => true]) ?>
-            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>
@@ -134,8 +113,9 @@ use app\models\RefMetodePembayaran;
 <div class="form-group">
     <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
 </div>
+<?php ActiveForm::end(); ?>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).ready(function () {
         $('.nomor_ppn').hide();
         $(document.body).on('change', '#list_ppn', function (){
@@ -157,4 +137,4 @@ use app\models\RefMetodePembayaran;
             }
         });
     });
-</script>
+</script> -->

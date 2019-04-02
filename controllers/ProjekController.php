@@ -87,6 +87,7 @@ class ProjekController extends Controller
             $model->rentang_waktu = $model->getRangeTime();
 
             $model->kode = $model->getKodeproject();
+            
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

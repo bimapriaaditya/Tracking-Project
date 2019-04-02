@@ -77,7 +77,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'id_ref_kriteria',
                     'value' => $model->refKriteria->nama
                 ],
-                'nos_spk',
                 [
                     'attribute' => 'pagu',
                     'value' => "Rp. ".number_format($model->pagu,2)
@@ -89,11 +88,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]); ?>
     </div>
-
     <div class="col-sm-6">
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
+                'nos_spk',
                 'penanggungjawab_lapangan',
                 'penanggungjawab_administrasi',
                 'status_admin',
@@ -122,26 +121,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute'=> 'status_spk',
                     'value' => $model->getSpk(),
                     'format' => 'raw',
-                ],
-                [
-                    'attribute'=> 'status_ssp_ppn',
-                    'value' => $model->getSspPpn(),
-                    'format' => 'raw',
-                ],
-                [
-                    'label' => 'No. Pajak PPN',
-                    'visible' => $model->getVisibleFixppn(),
-                    'value' =>  $model->getValuePpn(), 
-                ],
-                [
-                    'attribute'=> 'status_ssp_pph',
-                    'value' => $model->getSspPph(),
-                    'format' => 'raw',
-                ],
-                [
-                    'label' => 'No. Pajak PPH',
-                    'visible' => $model->getVisibleFixpph(),
-                    'value' => $model->getValuePph(),
                 ],
                 [
                     'attribute'=> 'status_sp2d',
@@ -217,7 +196,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th>Termin</th>
                     <th>Progress Termin</th>
                     <th>Hasil</th>
-                    <th>Keterangan</th>
+                    <th>PPN</th>
+                    <th>PPH</th>
                     <th>&nbsp;</th>
                 </tr>
                 <?php foreach (ProjekTermin::find()
@@ -228,11 +208,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td><?= $ProjekTermin->termin; ?> Termin</td>
                         <td><?= $ProjekTermin->persen; ?>%</td>
                         <td>Rp.<?= number_format($ProjekTermin->jumlah)?>,00</td>
-                        <td><?= $ProjekTermin->keterangan; 
-                            if($ProjekTermin->keterangan == ''){
-                                echo "-";
-                            } ?>
-                        </td>
+                        <td><?= $ProjekTermin->no_ppn;?></td>
+                        <td><?= $ProjekTermin->no_pph;?></td>
                         <td>
                             <?php if (User::isAdmin()): ?> 
                                 <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['projek-termin/update', 'id' => $ProjekTermin->id]); ?>

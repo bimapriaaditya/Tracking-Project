@@ -31,8 +31,6 @@ use yii\helpers\Html;
  * @property int $status_laporan_bulan
  * @property int $status_rab
  * @property int $status_spk
- * @property int $status_spp_ppn
- * @property int $status_spp_pph
  * @property int $status_sp2d
  * @property int $status_skb
  * @property int $status_bast
@@ -73,13 +71,13 @@ class Projek extends \yii\db\ActiveRecord
         return [
             [['nama', 'tanggal_mulai', 'tanggal_selesai', 'status', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_kriteria', 'nos_spk', 'id_ref_lokasi', 'jenis','id_ref_metode_pembayaran'], 'required'],
             //[['kode'],'integer','message' => '{attribute} harus angka'],
-            [['tahun', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_perusahaan_pengguna', 'id_ref_perusahaan_peminjam', 'id_ref_kriteria', 'status_pembelian_barang', 'id_ref_lokasi','id_ref_metode_pembayaran'], 'integer'],
+            [['tahun', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_perusahaan_pengguna', 'id_ref_perusahaan_peminjam', 'id_ref_kriteria', 'id_ref_lokasi','id_ref_metode_pembayaran'], 'integer'],
             //
             [['progress'], 'integer', 'max' => 100, 'min' => 1],
             //
-            [['kode','tanggal_mulai', 'tanggal_selesai', 'status','pajak_ppn','pajak_pph','urutan','rentang_waktu'], 'safe'],
+            [['kode','tanggal_mulai', 'tanggal_selesai', 'status','urutan','rentang_waktu', 'status_pembelian_barang'], 'safe'],
             //
-            [['pagu', 'nilai_kontrak', 'status_kak', 'status_proposal', 'status_laporan_bulan', 'status_rab', 'status_spk', 'status_ssp_ppn', 'status_ssp_pph', 'status_sp2d', 'status_skb', 'status_bast', 'status_referensi_ta'], 'required'],
+            [['pagu', 'nilai_kontrak', 'status_kak', 'status_proposal', 'status_laporan_bulan', 'status_rab', 'status_spk','status_sp2d', 'status_skb', 'status_bast', 'status_referensi_ta'], 'required'],
             //
             [['kode', 'nama', 'nos_spk', 'penanggungjawab_lapangan', 'penanggungjawab_administrasi', 'administrasi', 'jenis', 'status_admin', 'status_teknis' ], 'string', 'max'=> 255],
             //
@@ -287,28 +285,6 @@ class Projek extends \yii\db\ActiveRecord
         }
     }
 
-    public function getSspPpn()
-    {
-        if($this->status_ssp_ppn == 'Belum'){
-            return "&nbsp <span class='glyphicon glyphicon-remove' style='color:red;'> BelumTersedia </span>";
-        }elseif ($this->status_ssp_ppn == 'Proses') {
-            return "&nbsp <span class='glyphicon glyphicon-refresh' style='color:orange;'> SedangProses </span>";
-        }else{
-            return "&nbsp <span class='glyphicon glyphicon-ok'style='color:#30fb41;'> SudahSelesai </span>"; 
-        }
-    }
-
-    public function getSspPph()
-    {
-        if($this->status_ssp_pph == 'Belum'){
-            return "&nbsp <span class='glyphicon glyphicon-remove' style='color:red;'> BelumTersedia </span>";
-        }elseif ($this->status_ssp_pph == 'Proses') {
-            return "&nbsp <span class='glyphicon glyphicon-refresh' style='color:orange;'> SedangProses </span>";
-        }else{
-            return "&nbsp <span class='glyphicon glyphicon-ok'style='color:#30fb41;'> SudahSelesai </span>"; 
-        }
-    }
-
     public function getSp2d()
     {
         if($this->status_sp2d == 'Belum'){
@@ -368,46 +344,6 @@ class Projek extends \yii\db\ActiveRecord
     public function getNet()
     {
         return $this->getDpp() - $this->getPph();
-    }
-
-    public function getVisibleFixppn()
-    {
-        $nilai_ppn = $this->status_ssp_ppn;
-
-        if($nilai_ppn == 'Sudah'){
-            return 1;
-        }else{
-            return 0;
-        }
-    }
-
-    public function getVisibleFixpph()
-    {
-        $nilai_pph = $this->status_ssp_pph;
-
-        if($nilai_pph == 'Sudah'){
-            return 1;
-        }else{
-            return 0;
-        }
-    }
-
-    public function getValuePpn()
-    {
-        if($this->status_ssp_ppn == 'Sudah'){
-            return $this->pajak_ppn;
-        }else{
-            return 'Belum Tersedia';
-        }
-    }
-
-    public function getValuePph()
-    {
-        if($this->status_ssp_pph == 'Sudah'){
-            return $this->pajak_pph;
-        }else{
-            return 'Belum Tersedia';
-        }
     }
 
     public function getUrutanProject()
