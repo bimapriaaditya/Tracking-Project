@@ -46,14 +46,14 @@ use app\models\RefMetodePembayaran;
                 ]
             ]);?>    
 
+            <?= $form->field($model, 'instansi')->textInput() ?>
+
+            <?= $form->field($model, 'lokasi')->textInput() ?>   
+
             <?= $form->field($model, 'jenis')->dropdownList(['' => '--JenisProject--','Barang' => 'Barang','Jasa'=>'Jasa'],
             ['maxlength' => true]); ?>
 
             <?= $form->field($model, 'status')->dropdownList(['' => '--StautsProject--','Pemenang'=>'Pemenang', 'Potensi Project'=>'Potensi Project'],['maxlength' => true],['prompt' => '--Status Project--']); ?>
-
-            <?= $form->field($model, 'id_ref_lokasi')->dropdownList(RefLokasi::getList(),['prompt' => '--Lokasi--']); ?>    
-
-            <?= $form->field($model, 'id_ref_instansi')->dropdownList(RefInstansi::getlist(),['prompt' => '--Jenis Instansi--']); ?>
 
             <?= $form->field($model, 'id_ref_jenis_project')->dropdownList(RefJenisProjek::getList(),['prompt' => '--Jenis Project--']); ?>
 
@@ -111,6 +111,6 @@ use app\models\RefMetodePembayaran;
 </div>
 
 <div class="form-group">
-    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <?= Html::submitButton('Simpan', ['class' => 'btn btn-success']) ?>
 </div>
 <?php ActiveForm::end(); ?>
