@@ -206,10 +206,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     ->all() as $ProjekTermin): ?>
                     <tr>
                         <td><?= $ProjekTermin->termin; ?> Termin</td>
+
                         <td><?= $ProjekTermin->persen; ?>%</td>
+
                         <td>Rp.<?= number_format($ProjekTermin->jumlah)?>,00</td>
-                        <td><?= $ProjekTermin->no_ppn;?></td>
-                        <td><?= $ProjekTermin->no_pph;?></td>
+
+                        <?php if($ProjekTermin->ppn == 1){ ?>
+                            <td><?= $ProjekTermin->no_ppn;?></td>
+                        <?php }else{?>
+                            <td style="color:red;"> - </td>
+                        <?php }?>
+
+                        <?php if($ProjekTermin->pph == 1){ ?>
+                            <td><?= $ProjekTermin->no_pph;?></td>
+                        <?php }else{ ?>
+                            <td style="color: red;"> - </td>
+                        <?php }?>
+                        
                         <td>
                             <?php if (User::isAdmin()): ?> 
                                 <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['projek-termin/update', 'id' => $ProjekTermin->id]); ?>

@@ -114,27 +114,3 @@ use app\models\RefMetodePembayaran;
     <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
 </div>
 <?php ActiveForm::end(); ?>
-
-<!-- <script type="text/javascript">
-    $(document).ready(function () {
-        $('.nomor_ppn').hide();
-        $(document.body).on('change', '#list_ppn', function (){
-            var val = $('#list_ppn').val();
-            $('.nomor_ppn').hide('slow');
-            if(val == 'Sudah' ) {
-                console.log(val);
-                $('.nomor_ppn').toggle('slow');
-            } 
-
-        });
-        $('.nomor_pph').hide();
-        $(document.body).on('change', '#list_pph', function () {
-            var val = $('#list_pph').val();
-            $('.nomor_pph').hide('slow');
-            if(val == 'Sudah' ) {
-                console.log(val);
-                $('.nomor_pph').toggle('slow');
-            }
-        });
-    });
-</script> -->
