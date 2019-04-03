@@ -41,7 +41,7 @@ class RefInstansi extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama' => 'Nama',
+            'nama' => 'Nama Instansi',
         ];
     }
 
@@ -55,7 +55,7 @@ class RefInstansi extends \yii\db\ActiveRecord
 
     public static function getList()
     {
-        $query = RefInstansi::find()->all();
+        $query = RefInstansi::find()->orderBy(['nama' => SORT_ASC])->all();
         return ArrayHelper::map($query,'id','nama');
     }
 }

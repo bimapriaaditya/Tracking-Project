@@ -93,7 +93,7 @@ class ProjekTerminController extends Controller
             // Masih Cara 1 : 
             // $model->jumlah = ($model->persen/100) * $modelprojek->nilai_kontrak;
             //Cara 2
-            $model->jumlah = ($model->persen/100)*($model->projek->nilai_kontrak);
+            $model->jumlah = ($model->projek->nilai_kontrak) * ($model->persen/100);
 
 
             if($model->save()) {

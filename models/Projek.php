@@ -41,7 +41,6 @@ use yii\helpers\Html;
  * @property string $keterangan
  * @property double $pagu
  * @property double $nilai_kontrak
- * @property int $id_ref_lokasi
  * @property string $jenis
  * @property int $bulan
  * @property int $hari
@@ -51,7 +50,6 @@ use yii\helpers\Html;
  * @property RefPerusahaan $refPerusahaanPengguna
  * @property RefPerusahaan $refPerusahaanPeminjam
  * @property RefKriteria $refKriteria
- * @property RefLokasi $refLokasi
  */
 class Projek extends \yii\db\ActiveRecord
 {
@@ -69,9 +67,9 @@ class Projek extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'tanggal_mulai', 'tanggal_selesai', 'status', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_kriteria', 'nos_spk', 'id_ref_lokasi', 'jenis','id_ref_metode_pembayaran'], 'required'],
+            [['nama','lokasi', 'tanggal_mulai', 'tanggal_selesai', 'status', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_kriteria', 'nos_spk', 'jenis','id_ref_metode_pembayaran'], 'required'],
             //[['kode'],'integer','message' => '{attribute} harus angka'],
-            [['tahun', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_perusahaan_pengguna', 'id_ref_perusahaan_peminjam', 'id_ref_kriteria', 'id_ref_lokasi','id_ref_metode_pembayaran'], 'integer'],
+            [['tahun', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_perusahaan_pengguna', 'id_ref_perusahaan_peminjam', 'id_ref_kriteria','id_ref_metode_pembayaran'], 'integer'],
             //
             [['progress'], 'integer', 'max' => 100, 'min' => 1],
             //
@@ -93,8 +91,6 @@ class Projek extends \yii\db\ActiveRecord
             //
             [['id_ref_kriteria'], 'exist', 'skipOnError' => true, 'targetClass' => RefKriteria::className(), 'targetAttribute' => ['id_ref_kriteria' => 'id']],
             //
-            [['id_ref_lokasi'], 'exist', 'skipOnError' => true, 'targetClass' => RefLokasi::className(), 'targetAttribute' => ['id_ref_lokasi' => 'id']],
-            //
              [['id_ref_metode_pembayaran'], 'exist', 'skipOnError' => true, 'targetClass' => RefMetodePembayaran::className(), 'targetAttribute' => ['id_ref_metode_pembayaran' => 'id']],
         ];
     }
@@ -113,8 +109,8 @@ class Projek extends \yii\db\ActiveRecord
             'tanggal_mulai' => 'Tanggal Mulai',
             'tanggal_selesai' => 'Tanggal Selesai',
             'status' => 'Status Project',
+            'lokasi' => 'Lokasi Project',
             'jenis' => 'Jenis',
-            'id_ref_lokasi' => 'Lokasi',
             'id_ref_instansi' => 'Nama Instansi',
             'id_ref_jenis_project' => 'Jenis Project',
             'id_ref_perusahaan_pengguna' => 'Perusahaan Pengguna',
@@ -187,14 +183,6 @@ class Projek extends \yii\db\ActiveRecord
     public function getRefKriteria()
     {
         return $this->hasOne(RefKriteria::className(), ['id' => 'id_ref_kriteria']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRefLokasi()
-    {
-        return $this->hasOne(RefLokasi::className(), ['id' => 'id_ref_lokasi']);
     }
 
      public function getRefMetodePembayaran()

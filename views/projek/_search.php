@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\RefLokasi;
 use app\models\RefInstansi;
 use app\models\RefJenisProjek;
 
@@ -83,8 +82,6 @@ use app\models\RefJenisProjek;
     <?php // echo $form->field($model, 'pagu') ?>
 
     <?php // echo $form->field($model, 'nilai_kontrak') ?>
-
-    <?php  echo $form->field($model, 'id_ref_lokasi') ?>
 
     <?php // echo $form->field($model, 'jenis') ?>
 

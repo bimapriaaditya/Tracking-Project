@@ -61,10 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => $model->getDeadline()
                 ],
                 'status',
-                [
-                    'attribute' => 'id_ref_lokasi',
-                    'value' => $model->refLokasi->nama
-                ],
+                'lokasi',
                 [
                     'attribute' => 'id_ref_instansi',
                     'value' => $model->refInstansi->nama

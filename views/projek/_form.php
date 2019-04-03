@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\web\JqueryAsset;
 use kartik\date\DatePicker;
-use app\models\RefLokasi;
 use app\models\RefInstansi;
 use app\models\RefJenisProjek;
 use app\models\RefKriteria;
@@ -51,7 +50,7 @@ use app\models\RefMetodePembayaran;
 
             <?= $form->field($model, 'status')->dropdownList(['' => '--StautsProject--','Pemenang'=>'Pemenang', 'Potensi Project'=>'Potensi Project'],['maxlength' => true],['prompt' => '--Status Project--']); ?>
 
-            <?= $form->field($model, 'id_ref_lokasi')->dropdownList(RefLokasi::getList(),['prompt' => '--Lokasi--']); ?>    
+            <?= $form->field($model, 'lokasi')->textInput(['placeholder' => 'Input Lokasi'])?>
 
             <?= $form->field($model, 'id_ref_instansi')->dropdownList(RefInstansi::getlist(),['prompt' => '--Jenis Instansi--']); ?>
 
