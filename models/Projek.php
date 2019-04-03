@@ -16,7 +16,6 @@ use yii\helpers\Html;
  * @property string $tanggal_mulai
  * @property string $tanggal_selesai
  * @property int $status
- * @property int $id_ref_instansi
  * @property int $id_ref_project
  * @property int $id_ref_perusahaan_pengguna
  * @property int $id_ref_perusahaan_peminjam
@@ -44,8 +43,6 @@ use yii\helpers\Html;
  * @property string $jenis
  * @property int $bulan
  * @property int $hari
- *
- * @property RefJenisInstansi $refInstansi
  * @property RefJenisProjek $refJenisProject
  * @property RefPerusahaan $refPerusahaanPengguna
  * @property RefPerusahaan $refPerusahaanPeminjam
@@ -67,9 +64,11 @@ class Projek extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+
             [['nama','lokasi', 'tanggal_mulai', 'tanggal_selesai', 'status', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_kriteria', 'nos_spk', 'jenis','id_ref_metode_pembayaran'], 'required'],
             //[['kode'],'integer','message' => '{attribute} harus angka'],
             [['tahun', 'id_ref_instansi', 'id_ref_jenis_project', 'id_ref_perusahaan_pengguna', 'id_ref_perusahaan_peminjam', 'id_ref_kriteria','id_ref_metode_pembayaran'], 'integer'],
+
             //
             [['progress'], 'integer', 'max' => 100, 'min' => 1],
             //
@@ -80,8 +79,6 @@ class Projek extends \yii\db\ActiveRecord
             [['kode', 'nama', 'nos_spk', 'penanggungjawab_lapangan', 'penanggungjawab_administrasi', 'administrasi', 'jenis', 'status_admin', 'status_teknis' ], 'string', 'max'=> 255],
             //
             [['keterangan'], 'string'],
-            //
-            [['id_ref_instansi'], 'exist', 'skipOnError' => true, 'targetClass' => RefInstansi::className(), 'targetAttribute' => ['id_ref_instansi' => 'id']],
             //
             [['id_ref_jenis_project'], 'exist', 'skipOnError' => true, 'targetClass' => RefJenisProjek::className(), 'targetAttribute' => ['id_ref_jenis_project' => 'id']],
             //
@@ -112,6 +109,7 @@ class Projek extends \yii\db\ActiveRecord
             'lokasi' => 'Lokasi Project',
             'jenis' => 'Jenis',
             'id_ref_instansi' => 'Nama Instansi',
+
             'id_ref_jenis_project' => 'Jenis Project',
             'id_ref_perusahaan_pengguna' => 'Perusahaan Pengguna',
             'id_ref_perusahaan_peminjam' => 'Perusahaan Peminjam',
@@ -143,14 +141,6 @@ class Projek extends \yii\db\ActiveRecord
             'pajak_pph' => 'Pajak PPH',
             'rentang_waktu' => 'Rentang Waktu'
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRefInstansi()
-    {
-        return $this->hasOne(RefInstansi::className(), ['id' => 'id_ref_instansi']);
     }
 
     /**

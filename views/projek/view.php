@@ -19,8 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
        <p>
             <?= Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Kembali', ['index'],['class' => 'btn btn-info']); ?>
             <?php if (User::isAdmin()): ?> 
-                   <?= Html::a('<i class="glyphicon glyphicon-pencil"></i> Update', ['update', 'id' => $model->id],['class' => 'btn btn-primary']); ?>
-                   <?= Html::a('<i class="glyphicon glyphicon-trash"></i> Delete', ['delete', 'id' => $model->id], [
+                   <?= Html::a('<i class="glyphicon glyphicon-pencil"></i> Edit Project', ['update', 'id' => $model->id],['class' => 'btn btn-primary']); ?>
+                   <?= Html::a('<i class="glyphicon glyphicon-trash"></i> Hapus Project', ['delete', 'id' => $model->id], [
                         'class' => 'btn btn-danger',
                         'data' => [
                             'confirm' => 'Are you sure you want to delete this item?',
@@ -61,11 +61,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => $model->getDeadline()
                 ],
                 'status',
+<<<<<<< HEAD
                 'lokasi',
                 [
                     'attribute' => 'id_ref_instansi',
                     'value' => $model->refInstansi->nama
                 ],
+=======
+>>>>>>> 09339010d69cff27a799c16ea5a8753119324c99
                 [
                     'attribute' => 'id_ref_jenis_project',
                     'value' => $model->refJenisProject->nama
@@ -219,7 +222,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php }else{ ?>
                             <td style="color: red;"> - </td>
                         <?php }?>
-                        
+
                         <td>
                             <?php if (User::isAdmin()): ?> 
                                 <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['projek-termin/update', 'id' => $ProjekTermin->id]); ?>

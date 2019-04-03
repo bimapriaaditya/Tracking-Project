@@ -22,7 +22,7 @@ class ProjekSearch extends Projek
             'status_rab', 'status_spk', 'status_sp2d', 'status_skb', 'status_bast',
             'status_referensi_ta', 'status_pembelian_barang', 'id_ref_metode_pembayaran'], 'integer'],
             [['kode', 'nama', 'tanggal_mulai', 'tanggal_selesai', 'nos_spk', 'penanggungjawab_lapangan',
-            'penanggungjawab_administrasi', 'administrasi', 'keterangan', 'jenis', 'id_ref_instansi'], 'safe'],
+            'penanggungjawab_administrasi', 'administrasi', 'keterangan', 'jenis', 'instansi', 'lokasi'], 'safe'],
             [['pagu', 'nilai_kontrak'], 'number'],
         ];
     }
@@ -69,7 +69,8 @@ class ProjekSearch extends Projek
             'tanggal_mulai' => $this->tanggal_mulai,
             'tanggal_selesai' => $this->tanggal_selesai,
             'status' => $this->status,
-            'id_ref_instansi' => $this->id_ref_instansi,
+            'instansi' => $this->instansi,
+            'lokasi' => $this->lokasi,
             'id_ref_jenis_project' => $this->id_ref_jenis_project,
             'id_ref_perusahaan_pengguna' => $this->id_ref_perusahaan_pengguna,
             'id_ref_perusahaan_peminjam' => $this->id_ref_perusahaan_peminjam,
@@ -89,6 +90,7 @@ class ProjekSearch extends Projek
             'pagu' => $this->pagu,
             'nilai_kontrak' => $this->nilai_kontrak,
             'lokasi' => $this->lokasi,
+
         ]);
 
         // $query->orderBy(['id' => SORT_DESC]);

@@ -45,6 +45,10 @@ use app\models\RefMetodePembayaran;
                 ]
             ]);?>    
 
+            <?= $form->field($model, 'instansi')->textInput() ?>
+
+            <?= $form->field($model, 'lokasi')->textInput() ?>   
+
             <?= $form->field($model, 'jenis')->dropdownList(['' => '--JenisProject--','Barang' => 'Barang','Jasa'=>'Jasa'],
             ['maxlength' => true]); ?>
 
@@ -110,6 +114,6 @@ use app\models\RefMetodePembayaran;
 </div>
 
 <div class="form-group">
-    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <?= Html::submitButton('Simpan', ['class' => 'btn btn-success']) ?>
 </div>
 <?php ActiveForm::end(); ?>

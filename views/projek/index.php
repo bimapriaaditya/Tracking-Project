@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if (User::isAdmin()): ?>
         <p>
-            <?= Html::a('Create Projek', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Tambah Project', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif ?>
     <?= GridView::widget([
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'kode',
             'nama',
-            [
+            /*[
                 'attribute' => 'id_ref_instansi',
                 'filter' => RefInstansi::getList(),
                 'format' => 'raw',
@@ -38,7 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 {
                    return $projek->refInstansi->nama;
                 },
-            ],
+            ],*/
+            'instansi',
             'nos_spk',
             // 'status',
             // 'jenis',

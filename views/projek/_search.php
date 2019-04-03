@@ -31,7 +31,7 @@ use app\models\RefJenisProjek;
 
     <?php // echo $form->field($model, 'status') ?>
 
-    <?php  echo $form->field($model, 'id_instansi') ?>
+    <?= $form->field($model, 'instansi') ?>
 
     <?php  echo $form->field($model, 'id_ref_jenis_project') ?>
 
