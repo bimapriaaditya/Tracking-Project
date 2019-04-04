@@ -8,7 +8,7 @@ use app\models\User;
 /* @var $searchModel app\models\RefInstansiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Instansis';
+$this->title = 'Instansi';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-instansi-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if (User::isAdmin()): ?>
         <p>
-            <?= Html::a('Create Ref Instansi', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Tambah Instansi', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif ?>
 

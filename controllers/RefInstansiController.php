@@ -8,6 +8,7 @@ use app\models\RefInstansiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * RefInstansiController implements the CRUD actions for RefInstansi model.
@@ -20,10 +21,18 @@ class RefInstansiController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => false,
+                        'roles' => ['?'], //yang bisa diakses kalau tidak login
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index','update','view','create','delete'],
+                        'roles' => ['@'], // yang bisa diakses kalau sudah login
+                    ],
                 ],
             ],
         ];

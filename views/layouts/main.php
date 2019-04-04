@@ -9,7 +9,6 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-use app\models\User;
 
 AppAsset::register($this);
 ?>
@@ -40,16 +39,17 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
+            // ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Project', 'url' => ['/projek/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Instansi', 'url' => ['/ref-instansi/index']],
+            ['label' => 'About', 'url' => ['/site/about']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->identity->nama_pengguna . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()

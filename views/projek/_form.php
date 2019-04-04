@@ -45,10 +45,6 @@ use app\models\RefMetodePembayaran;
                 ]
             ]);?>    
 
-            <?= $form->field($model, 'instansi')->textInput() ?>
-
-            <?= $form->field($model, 'lokasi')->textInput() ?>   
-
             <?= $form->field($model, 'jenis')->dropdownList(['' => '--JenisProject--','Barang' => 'Barang','Jasa'=>'Jasa'],
             ['maxlength' => true]); ?>
 
