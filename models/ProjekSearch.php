@@ -17,12 +17,12 @@ class ProjekSearch extends Projek
     public function rules()
     {
         return [
-            [['id', 'tahun', 'status', 'id_ref_jenis_project', 'id_ref_perusahaan_pengguna', 'id_ref_perusahaan_peminjam', 
+            [['id', 'tahun', 'status', 'id_ref_jenis_project', 'id_ref_instansi', 'id_ref_perusahaan_pengguna', 'id_ref_perusahaan_peminjam', 
             'id_ref_kriteria', 'status_admin', 'status_teknis', 'status_kak', 'status_proposal', 'status_laporan_bulan', 
             'status_rab', 'status_spk', 'status_sp2d', 'status_skb', 'status_bast',
             'status_referensi_ta', 'status_pembelian_barang', 'id_ref_metode_pembayaran'], 'integer'],
             [['kode', 'nama', 'tanggal_mulai', 'tanggal_selesai', 'nos_spk', 'penanggungjawab_lapangan',
-            'penanggungjawab_administrasi', 'administrasi', 'keterangan', 'jenis', 'instansi', 'lokasi'], 'safe'],
+            'penanggungjawab_administrasi', 'administrasi', 'keterangan', 'jenis', 'lokasi'], 'safe'],
             [['pagu', 'nilai_kontrak'], 'number'],
         ];
     }
@@ -69,8 +69,8 @@ class ProjekSearch extends Projek
             'tanggal_mulai' => $this->tanggal_mulai,
             'tanggal_selesai' => $this->tanggal_selesai,
             'status' => $this->status,
-            'instansi' => $this->instansi,
             'lokasi' => $this->lokasi,
+            'id_ref_instansi' => $this->id_ref_instansi,
             'id_ref_jenis_project' => $this->id_ref_jenis_project,
             'id_ref_perusahaan_pengguna' => $this->id_ref_perusahaan_pengguna,
             'id_ref_perusahaan_peminjam' => $this->id_ref_perusahaan_peminjam,

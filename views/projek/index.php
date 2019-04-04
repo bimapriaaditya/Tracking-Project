@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'kode',
             'nama',
-            /*[
+            [
                 'attribute' => 'id_ref_instansi',
                 'filter' => RefInstansi::getList(),
                 'format' => 'raw',
@@ -38,8 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 {
                    return $projek->refInstansi->nama;
                 },
-            ],*/
-            'instansi',
+            ],
             'nos_spk',
             // 'status',
             // 'jenis',

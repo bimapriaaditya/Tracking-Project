@@ -82,6 +82,8 @@ class Projek extends \yii\db\ActiveRecord
             //
             [['id_ref_jenis_project'], 'exist', 'skipOnError' => true, 'targetClass' => RefJenisProjek::className(), 'targetAttribute' => ['id_ref_jenis_project' => 'id']],
             //
+            [['id_ref_instansi'], 'exist', 'skipOnError' => true, 'targetClass' => RefInstansi::className(), 'targetAttribute' => ['id_ref_instansi' => 'id']],
+            //
             [['id_ref_perusahaan_pengguna'], 'exist', 'skipOnError' => true, 'targetClass' => RefPerusahaan::className(), 'targetAttribute' => ['id_ref_perusahaan_pengguna' => 'id']],
             //
             [['id_ref_perusahaan_peminjam'], 'exist', 'skipOnError' => true, 'targetClass' => RefPerusahaan::className(), 'targetAttribute' => ['id_ref_perusahaan_peminjam' => 'id']],
@@ -108,8 +110,7 @@ class Projek extends \yii\db\ActiveRecord
             'status' => 'Status Project',
             'lokasi' => 'Lokasi Project',
             'jenis' => 'Jenis',
-            'id_ref_instansi' => 'Nama Instansi',
-
+            'id_ref_instansi' => 'Instansi',
             'id_ref_jenis_project' => 'Jenis Project',
             'id_ref_perusahaan_pengguna' => 'Perusahaan Pengguna',
             'id_ref_perusahaan_peminjam' => 'Perusahaan Peminjam',
@@ -149,6 +150,14 @@ class Projek extends \yii\db\ActiveRecord
     public function getRefJenisProject()
     {
         return $this->hasOne(RefJenisProjek::className(), ['id' => 'id_ref_jenis_project']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefInstansi()
+    {
+        return $this->hasOne(RefInstansi::className(), ['id' => 'id_ref_instansi']);
     }
 
     /**
