@@ -95,7 +95,6 @@ class ProjekTerminController extends Controller
             //Cara 2
             $model->jumlah = ($model->projek->nilai_kontrak) * ($model->persen/100);
 
-
             if($model->save()) {
                return $this->redirect(['projek/view', 'id' => $model->id_projek]);
             }
