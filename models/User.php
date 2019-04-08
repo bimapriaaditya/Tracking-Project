@@ -17,6 +17,15 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return 'user';
     }
 
+    public function rules()
+    {
+         return [
+            [['username', 'id_role', 'password', 'nama_pengguna'], 'required'],
+            [['id_role',],'integer'],
+            [['authKey', 'accessToken'],'safe']
+        ];
+    }
+
 
     public static function findIdentity($id)
     {

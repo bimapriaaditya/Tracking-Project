@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\User;
 
 AppAsset::register($this);
 ?>
@@ -29,6 +30,8 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    $user = new User();
+
     NavBar::begin([
         'brandLabel' =>'Bentang Inspira Teknologi',
         'brandUrl' => Yii::$app->homeUrl,
@@ -39,12 +42,13 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            // ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Project', 'url' => ['/projek/index']],
             ['label' => 'Instansi', 'url' => ['/ref-instansi/index']],
             ['label' => 'About', 'url' => ['/site/about']],
+            ['label' => 'Daftar Akun', 'url' => ['/user/index']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Login', 'url' => ['/site/login'],
+                'label' => 'Registrasi', 'url' => ['/user/create']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
